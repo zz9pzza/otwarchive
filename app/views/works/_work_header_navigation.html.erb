@@ -105,6 +105,9 @@
       <li><%= link_to ts("EPUB"), download_url_for_work(@work, "epub") %></li>
       <li><%= link_to ts("PDF"), download_url_for_work(@work, "pdf") %></li>
       <li><%= link_to ts("HTML"), download_url_for_work(@work, "html") %></li>
+      <% if logged_in? %>
+      <li><%= link_to ts("EMAIL"), download_url_for_work(@work, "email") %></li>
+      <% end %> 
       <li><a class="downloads_close close hidden" style="cursor: pointer;" title="Close Download Options">X</a></li>
     </ul>
   </li>
