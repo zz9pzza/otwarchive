@@ -162,6 +162,17 @@
 </fieldset>
 
 <fieldset>
+        <legend><%= ts("Mobile Preferences") %></legend>
+          <h4 class="heading"><%= ts("Mobile Preferences") %></h4>
+  <ul>
+    <li>
+	<dd><%= f.label :download_email_address, ts("Email address of device")  %>   <%= link_to_help "email_address_of_device" %>:</dt>
+        <dd><%= f.text_field :download_email_address %></dd>
+    </li>
+</ul>
+</fieldset>
+
+<fieldset>
 	<legend><%= ts("Misc") %></legend>
 	  <h4 class="heading"><%= ts("Misc") %></h4>
   <ul>
