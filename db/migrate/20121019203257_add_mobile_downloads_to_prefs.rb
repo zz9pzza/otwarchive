@@ -1,4 +1,4 @@
-class AddUserKindleEmailPrefs < ActiveRecord::Migration
+class AddMobileDownloadsToPrefs < ActiveRecord::Migration
   def self.up
     add_column :preferences, :download_email_address, :string
     add_column :preferences, :download_preffered_format, :string

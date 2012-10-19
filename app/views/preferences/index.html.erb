@@ -166,9 +166,20 @@
           <h4 class="heading"><%= ts("Mobile Preferences") %></h4>
   <ul>
     <li>
-	<dd><%= f.label :download_email_address, ts("Email address of device")  %>   <%= link_to_help "email_address_of_device" %>:</dt>
-        <dd><%= f.text_field :download_email_address %></dd>
+	<%= f.label :download_email_address, ts("Email address of device")  %>   <%= link_to_help "email_address_of_device" %>:
+        <%= f.text_field :download_email_address %>
     </li>
+    <li>
+           <%= f.label  ts("Confirmation code")  %><%= link_to_help "device_confirmation_code" %>:  <%= text_field_tag "confirmationcode" %>
+    </li>
+    <li>
+	   <%= f.label  ts("Preffered format")  %><%= link_to_help "device_format" %>: 
+	   <%= f.select :skin_id, @available_skins.collect{|s| [s.title, s.id]} %></dd>
+    </li>
+    <li>
+	<% if :download_activated  %><%= ts("Email address confirmed") %> <% else %><%= ts("Email address NOT confirmed") %><% end %>
+    </li>
+
 </ul>
 </fieldset>
 
