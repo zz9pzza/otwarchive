@@ -170,16 +170,18 @@
         <%= f.text_field :download_email_address %>
     </li>
     <li>
+           <%= f.label  ts("Preffered format")  %><%= link_to_help "device_format" %>:
+           <%= f.select :download_preffered_format, options_for_select(ArchiveConfig.DOWNLOAD_FORMATS.collect{|x| x}) %>
+    </li>
+    <% if @preference.download_activated == false  %>
+    <li>
            <%= f.label  ts("Confirmation code")  %><%= link_to_help "device_confirmation_code" %>:  <%= text_field_tag "confirmationcode" %>
     </li>
     <li>
-	   <%= f.label  ts("Preffered format")  %><%= link_to_help "device_format" %>: 
-	   <%= f.select :skin_id, @available_skins.collect{|s| [s.title, s.id]} %></dd>
+	  <%= check_box_tag 'resend_device_confirmation_email' %>
+          <%= f.label ts("Resend device confirmation email.") %>
     </li>
-    <li>
-	<% if :download_activated  %><%= ts("Email address confirmed") %> <% else %><%= ts("Email address NOT confirmed") %><% end %>
-    </li>
-
+    <% end %>
 </ul>
 </fieldset>
 
