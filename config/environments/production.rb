@@ -48,6 +48,9 @@ Otwarchive::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # Paper clip config
+  Paperclip.options[:command_path] = "/usr/bin/"
+
 #  # run after initialization so have access to ArchiveConfig
 #  config.after_initialize do
 #    config.middleware.use ExceptionNotifier,
