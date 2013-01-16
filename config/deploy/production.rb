@@ -6,13 +6,10 @@
 # 
 
 # otw3 runs nginx and squid and rails; if you want a console get it here
-server "otw3.ao3.org", :web, :app
+server "ao3-app01.ao3.org",  :app , :web
 
-# otw4 runs rails and resque and db migrations 
-server "otw4.ao3.org", :app, :worker, :db, :primary => true
-
-# otw5 is the db server
-server "otw5.ao3.org", :db, :no_release => true
+# ao3-db01 is the db server
+server "ao3-db01.ao3.org", :db, :no_release => true
 
 # ORDER OF EVENTS
 # Calling "cap deploy" runs:
@@ -24,13 +21,13 @@ server "otw5.ao3.org", :db, :no_release => true
 # Calling "cap deploy:migrations" inserts the task "deploy:migrate" before deploy:symlink 
 
 
-before "deploy:update_code", "production_only:git_in_home"
-after "deploy:update_code", "production_only:update_public", "production_only:update_tag_feeds", "production_only:update_configs"
+#before "deploy:update_code", "production_only:git_in_home"
+#after "deploy:update_code", "production_only:update_public", "production_only:update_tag_feeds", "production_only:update_configs"
 
-before "deploy:migrate", "production_only:backup_db"
+#before "deploy:migrate", "production_only:backup_db"
 
-after "deploy:restart", "production_only:update_cron_email"
-after "deploy:restart", "production_only:notify_testers"
+#after "deploy:restart", "production_only:update_cron_email"
+#after "deploy:restart", "production_only:notify_testers"
 
 # deploy from clean branch
-set :branch, "deploy"
+set :branch, "issue_3479"
