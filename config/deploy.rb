@@ -43,7 +43,7 @@ set :rvm_type, :user
 # user settings
 set :user, "ao3app"
 set :auth_methods, "publickey"
-ssh_options[:verbose] = :debug
+#ssh_options[:verbose] = :debug
 ssh_options[:auth_methods] = %w(publickey)
 set :use_sudo, false
 default_run_options[:shell] = '/bin/bash'
@@ -80,7 +80,7 @@ namespace :production_only do
   desc "Use git to pull down the deploy branch and install bundle"
   task :git_in_home, :roles => :app do
     #run "git pull origin deploy"
-   # run "bundle install --quiet"
+    run "bundle install --quiet"
   end
   
   desc "Get the config files "
@@ -125,7 +125,6 @@ end
 #
 
 # after and before task triggers that should run on both staging and production
-before 'deploy', 'rvm:install_rvm'
 #before "deploy:migrate", "deploy:web:disable"
 #after "deploy:migrate", "extras:run_after_tasks"
 #
