@@ -1,6 +1,6 @@
 <ul class="menu" role="menu">
-  <li><%= span_if_current ts("Works"), works_path %></li>
-  <li><%= span_if_current ts("Bookmarks"), bookmarks_path %></li>
-  <li><%= span_if_current ts("Tags"), tags_path %></li>
-  <li><%= span_if_current ts("Collections"), collections_path %></li>
+  <li><%= span_if_current ts("Works",key: "header.browse.works"), works_path %></li>
+  <li><%= span_if_current ts("Bookmarks",key: "header.browse.bookmarks"), bookmarks_path %></li>
+  <li><%= span_if_current ts("Tags",key: "header.browse.tags"), tags_path %></li>
+  <li><%= span_if_current ts("Collections",key: "header.browse.collection"), collections_path %></li>
 </ul>
