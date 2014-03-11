@@ -10,8 +10,8 @@ class ExternalAuthorName < ActiveRecord::Base
 
   validates_length_of :name, 
     :within => NAME_LENGTH_MIN..NAME_LENGTH_MAX, 
-    :too_short => ts("is too short (minimum is %{min} characters)", :min => NAME_LENGTH_MIN),
-    :too_long => ts("is too long (maximum is %{max} characters)", :max => NAME_LENGTH_MAX)
+    :too_short => ts("is too short (minimum is %{min} characters)",key: "exterauth", :min => NAME_LENGTH_MIN),
+    :too_long => ts("is too long (maximum is %{max} characters)",key: "externauth", :max => NAME_LENGTH_MAX)
 
   validates_uniqueness_of :name, :scope => :external_author_id, :case_sensitive => false  
 

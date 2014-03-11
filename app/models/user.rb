@@ -9,16 +9,16 @@ class User < ActiveRecord::Base
   LOGIN_LENGTH_MAX = 40
 
   validates_length_of :login, :within => LOGIN_LENGTH_MIN..LOGIN_LENGTH_MAX,
-    :too_short => ts("is too short (minimum is %{min_login} characters)", :min_login => LOGIN_LENGTH_MIN),
-    :too_long => ts("is too long (maximum is %{max_login} characters)", :max_login => LOGIN_LENGTH_MAX)
+    :too_short => ts("is too short (minimum is %{min_login} characters)",:key => "login", :min_login => LOGIN_LENGTH_MIN),
+    :too_long => ts("is too long (maximum is %{max_login} characters)",:key => "login", :max_login => LOGIN_LENGTH_MAX)
 
   PASSWORD_LENGTH_MIN = 6
   PASSWORD_LENGTH_MAX = 40
 
   # allow nil so can save existing users
   validates_length_of :password, :within => PASSWORD_LENGTH_MIN..PASSWORD_LENGTH_MAX, :allow_nil => true,
-    :too_short => ts("is too short (minimum is %{min_pwd} characters)", :min_pwd => PASSWORD_LENGTH_MIN),
-    :too_long => ts("is too long (maximum is %{max_pwd} characters)", :max_pwd => PASSWORD_LENGTH_MAX)
+    :too_short => ts("is too short (minimum is %{min_pwd} characters)", :key => "password",:min_pwd => PASSWORD_LENGTH_MIN),
+    :too_long => ts("is too long (maximum is %{max_pwd} characters)", :key => "password",:max_pwd => PASSWORD_LENGTH_MAX)
 
 ####
 
