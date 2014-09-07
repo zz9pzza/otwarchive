@@ -162,7 +162,7 @@ class CollectionItem < ActiveRecord::Base
       end
     end
     if anonymous_changed?
-      notify_of_author_reveal
+      notify_of_reveal
     end
   end
   
@@ -266,7 +266,7 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def notify_of_reveal
-    unless self.unrevealed? || !self.posted?
+    unless self.anonymous? || self.unrevealed? || !self.posted? 
       recipient_pseuds = Pseud.parse_bylines(self.recipients, :assume_matching_login => true)[:pseuds]
       recipient_pseuds.each do |pseud|
         unless pseud.user.preference.recipient_emails_off
@@ -285,13 +285,9 @@ class CollectionItem < ActiveRecord::Base
           relationship.notify_parent_owners
         end
       end
-    end
-  end
-
-  # When the authors of anonymous works are revealed, notify users
-  # subscribed to those authors
-  def notify_of_author_reveal
-    unless self.anonymous? || !self.posted?
+ 
+      # When the authors of anonymous works are revealed, notify users
+      # subscribed to those authors
       if item_type == "Work"
         subs = Subscription.where(["subscribable_type = 'User' AND subscribable_id IN (?)",
                                   item.pseuds.map{|p| p.user_id}]).
@@ -299,7 +295,8 @@ class CollectionItem < ActiveRecord::Base
         subs.each do |subscription|
           RedisMailQueue.queue_subscription(subscription, item)
         end
-      end      
+      end
+
     end
   end
 
