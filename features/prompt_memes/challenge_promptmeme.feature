@@ -1078,9 +1078,10 @@ Feature: Prompt Meme Challenge
   When I fulfill my claim
   When mod fulfills claim
   When I reveal the "Battle 12" challenge
+  When I reveal the authors of the "Battle 12" challenge
   Then I should see "Collection was successfully updated"
-  # 2 stories are now revealed, so notify the prompters
-    And 2 emails should be delivered
+  # 2 stories are now revealed, so notify the prompters, and the subscribers
+    And 4 emails should be delivered
     
   Scenario: When a prompt is filled with a co-authored work, the e-mail should link to each author's URL instead of showing escaped HTML
   Given I have Battle 12 prompt meme fully set up
@@ -1136,22 +1137,6 @@ Feature: Prompt Meme Challenge
   When I reveal the "Battle 12" challenge
   When I reveal the authors of the "Battle 12" challenge
   Then I should see "Collection was successfully updated"
-  
-  Scenario: Revealing authors doesn't send emails
-  
-  Given I have Battle 12 prompt meme fully set up
-  Given everyone has signed up for Battle 12
-  When I am logged in as "myname4"
-  When I claim a prompt from "Battle 12"
-  When I close signups for "Battle 12"
-  When I am logged in as "myname4"
-  When I fulfill my claim
-  When mod fulfills claim
-  When I reveal the "Battle 12" challenge
-  Given all emails have been delivered
-  When I reveal the authors of the "Battle 12" challenge
-  Then I should see "Collection was successfully updated"
-  Then 0 emails should be delivered
   
   Scenario: When challenge is revealed-authors, user can see claims
   
