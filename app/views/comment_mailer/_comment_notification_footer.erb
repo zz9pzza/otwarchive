@@ -1,13 +1,13 @@
 <p>
-  <%= ts("Posted") %>: <%= @comment.created_at %>
+  <%= t 'mailer.comment_notification.footer.posted', time:  @comment.created_at %>
   <% unless @comment.edited_at.blank? %>
-    <br /><%= ts("Last edited") %>: <%= @comment.edited_at %>
+    <br /><%= t 'mailer.comment_notification.footer.edited', time:  @comment.edited_at %>
   <% end %>
 </p>
 
 <% if @comment.ultimate_parent.is_a?(Tag) %>
 
-  <%= style_link("Read all comments on " + @comment.ultimate_parent.name, 
+  <%= style_link("#{t 'mailer.comment_notification.footer.read_all', comment:  @comment.ultimate_parent.name}",
     {
       :controller => :comments, 
       :action => :index, 
@@ -18,7 +18,7 @@
   <br />
   
   <% unless @noreply %>
-    <%= style_link("Reply to this comment",
+    <%= style_link("#{t 'mailer.comment_notification.footer.reply_to' }",
       {
         :controller => :comments, 
         :action => :index, 
@@ -30,7 +30,7 @@
     <br />
   <% end %>
   
-  <%= style_link("Go to the thread starting from this comment", 
+  <%= style_link("#{t 'mailer.comment_notification.footer.thread_starting' }", 
     {
       :controller => :comments, 
       :action => :index, 
@@ -42,7 +42,7 @@
   <br />
   
   <% unless @comment.id == @comment.thread %>
-    <%= style_link("Go to the thread to which this comment belongs", 
+    <%= style_link("#{t 'mailer.comment_notification.footer.thread_belongs' }", 
       {
         :controller => :comments, 
         :action => :index, 
@@ -55,22 +55,22 @@
 <% else %>
 
   <% unless @noreply %>
-    <%= style_link("Reply to this comment", 
+    <%= style_link("#{t 'mailer.comment_notification.footer.reply_to' }", 
       comment_url(@comment, :add_comment_reply_id => @comment.id, :only_path => false)) %>
     <br />
   <% end %>
   
-  <%= style_link("Go to the thread starting from this comment", 
+  <%= style_link("#{t 'mailer.comment_notification.footer.thread_starting' }", 
     comment_url(@comment, :only_path => false)) %>
   <br />
   
   <% unless @comment.id == @comment.thread %>
-    <%= style_link("Go to the thread to which this comment belongs", 
+    <%= style_link("#{t 'mailer.comment_notification.footer.thread_belongs' }", 
       comment_url(:id => @comment.thread, :only_path => false)) %>
     <br />
   <% end %>
   
-  <%= style_link("Read all comments on <i>" + @comment.ultimate_parent.commentable_name + "</i>", 
+  <%= style_link("#{t 'mailer.comment_notification.footer.comments_on', comment:  @comment.ultimate_parent.commentable_name }", 
     polymorphic_url(@comment.ultimate_parent, 
       :view_full_work => true, 
       :show_comments => true, 

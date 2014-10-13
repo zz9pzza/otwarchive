@@ -37,6 +37,14 @@ en:
     the_tag: the tag
     comment_notification:
       subject: "[%{app_name}] Comment on %{tag} %{commentable}"
+      footer:
+        posted: "Posted : %{time}"
+        edited: "Last edited : %{time}"
+        read_all: "Read all comments on %{comment}"
+        reply_to: "Reply to this comment"
+        thread_starting: "Go to the thread starting from this comment"
+        thread_belongs: "Go to the thread to which this comment belongs"
+        comments_on: "Read all comments on <i>%{comment}</i>"
     edited_comment_notification:
       subject: "[%{app_name}] Edited comment on %{tag} %{commentable}"
 
