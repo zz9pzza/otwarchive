@@ -10,9 +10,10 @@ class CommentMailer < ActionMailer::Base
     user = User.find(user_id)
     @comment = Comment.find(comment_id)
     I18n.with_locale(Locale.find(user.preference.prefered_locale).iso) do
+      tag = (@comment.ultimate_parent.is_a?(Tag) ? "#{t 'comment_mailer.the_tag'}" : "" )
       mail(
         :to => user.email,
-        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+        :subject => "#{t 'comment_mailer.comment_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
       )
     end
     ensure
@@ -24,9 +25,10 @@ class CommentMailer < ActionMailer::Base
     user = User.find(user_id)
     @comment = Comment.find(comment_id)
     I18n.with_locale(Locale.find(user.preference.prefered_locale).iso) do
+      tag = (@comment.ultimate_parent.is_a?(Tag) ? "#{t 'comment_mailer.the_tag'}" : "" )
       mail(
         :to => user.email,
-        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Edited comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+        :subject => "#{t 'comment_mailer.edited_comment_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
       )
     end
     ensure
