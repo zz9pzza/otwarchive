@@ -36,7 +36,7 @@ en:
   comment_mailer:
     the_tag: the tag
     comment_notification:
-      subject: "[%{app_name}] Comment on %{tag} %{commentable}"
+      subject: "[%{app_name}] Comment on %{the_tag} %{commentable}"
       footer:
         posted: "Posted : %{time}"
         edited: "Last edited : %{time}"
@@ -46,5 +46,5 @@ en:
         thread_belongs: "Go to the thread to which this comment belongs"
         comments_on: "Read all comments on <i>%{comment}</i>"
     edited_comment_notification:
-      subject: "[%{app_name}] Edited comment on %{tag} %{commentable}"
+      subject: "[%{app_name}] Edited comment on %{the_tag} %{commentable}"
 
