@@ -13,7 +13,7 @@ class CommentMailer < ActionMailer::Base
       tag = (@comment.ultimate_parent.is_a?(Tag) ? "#{t 'comment_mailer.the_tag'}" : "" )
       mail(
         :to => user.email,
-        :subject => "#{t 'comment_mailer.comment_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
+        :subject => "#{t 'comment_comment_mailer.comment_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
       )
     end
     ensure

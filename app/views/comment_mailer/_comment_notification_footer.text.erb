@@ -1,14 +1,14 @@
 <%= text_divider %>
-<%= t 'mailer.comment_notification.footer.posted', time:  @comment.created_at %><% unless @comment.edited_at.blank? %>
-<%= t 'mailer.comment_notification.footer.edited', time:  @comment.edited_at %><% end %>
+<%= t 'comment_mailer.comment_notification.footer.posted', time:  @comment.created_at %><% unless @comment.edited_at.blank? %>
+<%= t 'comment_mailer.comment_notification.footer.edited', time:  @comment.edited_at %><% end %>
 <% if @comment.ultimate_parent.is_a?(Tag) %>
-<%= t 'mailer.comment_notification.footer.read_all', comment:  @comment.ultimate_parent.name %> : <%= url_for(:controller => :comments, :action => :index, :tag_id => @comment.ultimate_parent, :only_path => false) %><% unless @noreply %>
-<%=t 'mailer.comment_notification.footer.reply_to' %> : <%= url_for(:controller => :comments, :action => :index, :tag_id => @comment.ultimate_parent, :only_path => false, :add_comment_reply_id => @comment.id, :anchor => "comment_#{@comment.id}") %><% end %>
-<%=t 'mailer.comment_notification.footer.thread_starting'%> : <%= url_for(:controller => :comments,  :action => :index,  :tag_id => @comment.ultimate_parent,  :only_path => false,  :anchor => "comment_#{@comment.id}") %><% unless @comment.id == @comment.thread %>
-<%=t 'mailer.comment_notification.footer.thread_belongs'%> : <%= url_for(:controller => :comments, :action => :index, :tag_id => @comment.ultimate_parent, :anchor => "comment_#{@comment.thread}", :only_path => false) %><% end %>
+<%= t 'comment_mailer.comment_notification.footer.read_all', comment:  @comment.ultimate_parent.name %> : <%= url_for(:controller => :comments, :action => :index, :tag_id => @comment.ultimate_parent, :only_path => false) %><% unless @noreply %>
+<%=t 'comment_mailer.comment_notification.footer.reply_to' %> : <%= url_for(:controller => :comments, :action => :index, :tag_id => @comment.ultimate_parent, :only_path => false, :add_comment_reply_id => @comment.id, :anchor => "comment_#{@comment.id}") %><% end %>
+<%=t 'comment_mailer.comment_notification.footer.thread_starting'%> : <%= url_for(:controller => :comments,  :action => :index,  :tag_id => @comment.ultimate_parent,  :only_path => false,  :anchor => "comment_#{@comment.id}") %><% unless @comment.id == @comment.thread %>
+<%=t 'comment_mailer.comment_notification.footer.thread_belongs'%> : <%= url_for(:controller => :comments, :action => :index, :tag_id => @comment.ultimate_parent, :anchor => "comment_#{@comment.thread}", :only_path => false) %><% end %>
 <% else %><% unless @noreply %>
-<%=t 'mailer.comment_notification.footer.reply_to'%> : <%= comment_url(@comment, :add_comment_reply_id => @comment.id, :only_path => false) %><% end %>
-<%=t 'mailer.comment_notification.footer.thread_starting'%> : <%= comment_url(@comment, :only_path => false) %><% unless @comment.id == @comment.thread %>
-<%=t 'mailer.comment_notification.footer.thread_belongs'%> : <%= comment_url(:id => @comment.thread, :only_path => false) %><% end %>
-<%=t 'mailer.comment_notification.footer.comments_on', comment:  @comment.ultimate_parent.commentable_name %> : <%= polymorphic_url(@comment.ultimate_parent, :view_full_work => true, :show_comments => true, :anchor => :comments, :only_path => false) %>
+<%=t 'comment_mailer.comment_notification.footer.reply_to'%> : <%= comment_url(@comment, :add_comment_reply_id => @comment.id, :only_path => false) %><% end %>
+<%=t 'comment_mailer.comment_notification.footer.thread_starting'%> : <%= comment_url(@comment, :only_path => false) %><% unless @comment.id == @comment.thread %>
+<%=t 'comment_mailer.comment_notification.footer.thread_belongs'%> : <%= comment_url(:id => @comment.thread, :only_path => false) %><% end %>
+<%=t 'comment_mailer.comment_notification.footer.comments_on', comment:  @comment.ultimate_parent.commentable_name %> : <%= polymorphic_url(@comment.ultimate_parent, :view_full_work => true, :show_comments => true, :anchor => :comments, :only_path => false) %>
 <% end %>
