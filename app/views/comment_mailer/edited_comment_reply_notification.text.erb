@@ -7,7 +7,7 @@
       @comment.comment_owner_name + " (" + polymorphic_url(@comment.comment_owner, :only_path => false) + ")"
     ) :
     @comment.comment_owner_name %>
-<%= responder %> <%= t 'comment_mailer.edited_reply.edited_reply' %> <% if @comment.ultimate_parent.is_a?(Tag) then %>  <%=t 'comment_mailer.the_tag'%> <%= @comment.ultimate_parent.commentable_name %> (<%= url_for(:controller => :tags, :action => :show, :id => @comment.ultimate_parent.to_param, :only_path => false) %>)<% else %>"<%= @comment.ultimate_parent.commentable_name.html_safe %>" (<%= polymorphic_url(@comment.ultimate_parent, :only_path => false) %>)<% end %>:
+<%= t 'comment_mailer.edited_reply.edited_reply', responder: responder %> <% if @comment.ultimate_parent.is_a?(Tag) then %>  <%=t 'comment_mailer.the_tag'%> <%= @comment.ultimate_parent.commentable_name %> (<%= url_for(:controller => :tags, :action => :show, :id => @comment.ultimate_parent.to_param, :only_path => false) %>)<% else %>"<%= @comment.ultimate_parent.commentable_name.html_safe %>" (<%= polymorphic_url(@comment.ultimate_parent, :only_path => false) %>)<% end %>:
 
 <%= t 'comment_mailer.edited_reply.you_wrote' %>
 <%= text_divider %>
@@ -16,7 +16,7 @@
 
 <%= text_divider %>
 
-<%= responder %> <%= t 'comment_mailer.edited_reply.edited_response' %> :
+<%= t 'comment_mailer.edited_reply.edited_response', responder: responder %> :
 <%= text_divider %>
 
 <%= to_plain_text(raw @comment.sanitized_content) %>

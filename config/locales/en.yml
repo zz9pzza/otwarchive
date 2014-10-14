@@ -36,10 +36,16 @@ en:
   comment_mailer:
     the_tag: "the tag"
     anonymous: "Anonymous Creator"
+    edited_reply:
+      edited_reply: "%{responder} edited their reply to your comment on"
+      you_wrote: "You wrote"
+      edited_response: "%{responder} edited their response to"
     comment_reply:
       replied_to: "replied to your comment on"
       you_wrote: "You wrote"
       responded: "Responded"
+    comment_sent:
+      you_left: "You left the following comment on"
     comment_notification:
       subject: "[%{app_name}] Comment on %{the_tag} %{commentable}"
       left_comment: "left the following comment on"
