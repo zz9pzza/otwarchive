@@ -40,10 +40,12 @@ class CommentMailer < ActionMailer::Base
   def comment_reply_notification(your_comment_id, comment_id)
     @your_comment = Comment.find(your_comment_id)
     @comment = Comment.find(comment_id)
-    mail(
-      :to => @your_comment.comment_owner_email,
-      :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Reply to your comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
-    )
+    I18n.with_locale(prefered_locale_for_email(@your_comment.comment_owner_email)) do
+      mail(
+        :to => @your_comment.comment_owner_email,
+        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Reply to your comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+      )
+    end
     ensure
      I18n.locale = I18n.default_locale
   end
@@ -53,10 +55,12 @@ class CommentMailer < ActionMailer::Base
   def edited_comment_reply_notification(your_comment_id, edited_comment_id)
     @your_comment = Comment.find(your_comment_id)
     @comment = Comment.find(edited_comment_id)
-    mail(
-      :to => @your_comment.comment_owner_email,
-      :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Edited reply to your comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
-    )
+    I18n.with_locale(prefered_locale_for_email(@your_comment.comment_owner_email)) do
+      mail(
+        :to => @your_comment.comment_owner_email,
+        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Edited reply to your comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+      )
+    end
     ensure
      I18n.locale = I18n.default_locale
   end
@@ -65,10 +69,12 @@ class CommentMailer < ActionMailer::Base
   def comment_sent_notification(comment_id)
     @comment = Comment.find(comment_id)
     @noreply = true # don't give reply link to your own comment
-    mail(
-      :to => @comment.comment_owner_email,
-      :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Comment you left on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
-    )
+    I18n.with_locale(prefered_locale_for_email(@comment.comment_owner_email)) do
+      mail(
+        :to => @comment.comment_owner_email,
+        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Comment you left on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+      )
+    end
     ensure
      I18n.locale = I18n.default_locale
   end
