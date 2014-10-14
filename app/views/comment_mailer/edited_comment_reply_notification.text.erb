@@ -3,20 +3,20 @@
     (
       (@comment.comment_owner.is_author_of?(@comment.ultimate_parent) && 
         @comment.ultimate_parent.anonymous?) ? 
-      "Anonymous Creator" : 
+      "#{t 'comment_mailer.anonymous'}" : 
       @comment.comment_owner_name + " (" + polymorphic_url(@comment.comment_owner, :only_path => false) + ")"
     ) :
     @comment.comment_owner_name %>
-<%= responder %> edited their reply to your comment on <% if @comment.ultimate_parent.is_a?(Tag) then %> the tag <%= @comment.ultimate_parent.commentable_name %> (<%= url_for(:controller => :tags, :action => :show, :id => @comment.ultimate_parent.to_param, :only_path => false) %>)<% else %>"<%= @comment.ultimate_parent.commentable_name.html_safe %>" (<%= polymorphic_url(@comment.ultimate_parent, :only_path => false) %>)<% end %>:
+<%= responder %> <%= t 'comment_mailer.edited_reply.edited_reply' %> <% if @comment.ultimate_parent.is_a?(Tag) then %>  <%=t 'comment_mailer.the_tag'%> <%= @comment.ultimate_parent.commentable_name %> (<%= url_for(:controller => :tags, :action => :show, :id => @comment.ultimate_parent.to_param, :only_path => false) %>)<% else %>"<%= @comment.ultimate_parent.commentable_name.html_safe %>" (<%= polymorphic_url(@comment.ultimate_parent, :only_path => false) %>)<% end %>:
 
-You wrote:
+<%= t 'comment_mailer.edited_reply.you_wrote' %>
 <%= text_divider %>
 
 <%= to_plain_text(raw @your_comment.sanitized_content) %>
 
 <%= text_divider %>
 
-<%= responder %> edited their response to:
+<%= responder %> <%= t 'comment_mailer.edited_reply.edited_response' %> :
 <%= text_divider %>
 
 <%= to_plain_text(raw @comment.sanitized_content) %>
