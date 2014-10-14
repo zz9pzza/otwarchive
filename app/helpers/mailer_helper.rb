@@ -54,6 +54,14 @@ module MailerHelper
   def text_divider
     "--------------------"
   end
+
+  def prefered_locale_for_email(email)
+    user=User.find_by_email(email)
+    if user.nil? then
+      return I18n.default_locale
+    end
+    return Locale.find(user.preference.prefered_locale).iso
+  end
   
   # strip opening paragraph tags, and line breaks or close-pargraphs at the end of the string
   # all other close-paragraphs become double line breaks
