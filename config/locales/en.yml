@@ -34,9 +34,14 @@ en:
           Cheers, 
           %{archive_name}
   comment_mailer:
-    the_tag: the tag
+    the_tag: "the tag"
+    anonymous: "Anonymous Creator"
+    comment_reply:
+      replied_to: "replied to your comment on"
     comment_notification:
       subject: "[%{app_name}] Comment on %{the_tag} %{commentable}"
+      left_comment: "left the following comment on"
+      edit_comment: "edited the following comment on"
       footer:
         posted: "Posted : %{time}"
         edited: "Last edited : %{time}"
