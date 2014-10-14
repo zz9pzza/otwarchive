@@ -20,12 +20,12 @@
   <% end %>
   
   <p>
-    You wrote:
+  <%= t 'comment_mailer.comment_reply.you_wrote' %>:
     <%= style_quote(raw @your_comment.sanitized_content) %>
   </p>
     
   <p>
-    <%= style_bold(responder) %> responded:
+    <%= style_bold(responder) %><%= t 'comment_mailer.comment_reply.responded' %>:
     <%= style_quote(raw @comment.sanitized_content) %>  
   </p>
 

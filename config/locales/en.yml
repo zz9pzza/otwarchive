@@ -38,6 +38,8 @@ en:
     anonymous: "Anonymous Creator"
     comment_reply:
       replied_to: "replied to your comment on"
+      you_wrote: "You wrote"
+      responded: "Responded"
     comment_notification:
       subject: "[%{app_name}] Comment on %{the_tag} %{commentable}"
       left_comment: "left the following comment on"
