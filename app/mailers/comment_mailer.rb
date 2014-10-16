@@ -5,6 +5,14 @@ class CommentMailer < ActionMailer::Base
   helper :mailer
   default :from => "Archive of Our Own " + "<#{ArchiveConfig.RETURN_ADDRESS}>"
 
+  def prefered_locale_for_email(email)
+    user=User.find_by_email(email)
+    if user.nil? then
+      return I18n.default_locale
+    end
+    return Locale.find(user.preference.prefered_locale).iso
+  end
+
   # Sends email to an owner of the top-level commentable when a new comment is created
   def comment_notification(user_id, comment_id)
     user = User.find(user_id)
@@ -41,9 +49,10 @@ class CommentMailer < ActionMailer::Base
     @your_comment = Comment.find(your_comment_id)
     @comment = Comment.find(comment_id)
     I18n.with_locale(prefered_locale_for_email(@your_comment.comment_owner_email)) do
+      tag = (@comment.ultimate_parent.is_a?(Tag) ? "#{t 'comment_mailer.the_tag'}" : "" )
       mail(
         :to => @your_comment.comment_owner_email,
-        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Reply to your comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+        :subject => "#{t 'comment_mailer.comment_reply.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
       )
     end
     ensure
@@ -56,9 +65,10 @@ class CommentMailer < ActionMailer::Base
     @your_comment = Comment.find(your_comment_id)
     @comment = Comment.find(edited_comment_id)
     I18n.with_locale(prefered_locale_for_email(@your_comment.comment_owner_email)) do
+      tag = (@comment.ultimate_parent.is_a?(Tag) ? "#{t 'comment_mailer.the_tag'}" : "" )
       mail(
         :to => @your_comment.comment_owner_email,
-        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Edited reply to your comment on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+        :subject => "#{t 'comment_mailer.edited_reply.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
       )
     end
     ensure
@@ -70,9 +80,10 @@ class CommentMailer < ActionMailer::Base
     @comment = Comment.find(comment_id)
     @noreply = true # don't give reply link to your own comment
     I18n.with_locale(prefered_locale_for_email(@comment.comment_owner_email)) do
+      tag = (@comment.ultimate_parent.is_a?(Tag) ? "#{t 'comment_mailer.the_tag'}" : "" )
       mail(
         :to => @comment.comment_owner_email,
-        :subject => "[#{ArchiveConfig.APP_SHORT_NAME}] Comment you left on " + (@comment.ultimate_parent.is_a?(Tag) ? "the tag " : "") + @comment.ultimate_parent.commentable_name.gsub("&gt;", ">").gsub("&lt;", "<")
+        :subject => "#{t 'comment_mailer.comment_sent.subject', app_name: ArchiveConfig.APP_SHORT_NAME, the_tag: tag, commentable:  @comment.ultimate_parent.commentable_name.gsub('&gt;', '>').gsub('&lt;', '<') }"
       )
     end
     ensure

@@ -40,12 +40,15 @@ en:
       edited_reply: "%{responder} edited their reply to your comment on"
       you_wrote: "You wrote"
       edited_response: "%{responder} edited their response to"
+      subject: "[%{app_name}] Edited reply to your comment on %{the_tag} %{commentable}"
     comment_reply:
       replied_to: "replied to your comment on"
       you_wrote: "You wrote"
       responded: "Responded"
+      subject: "[%{app_name}] Reply to your comment on %{the_tag} %{commentable}"
     comment_sent:
       you_left: "You left the following comment on"
+      subject: "[%{app_name}] Comment you left on %{the_tag} %{commentable}"
     comment_notification:
       subject: "[%{app_name}] Comment on %{the_tag} %{commentable}"
       left_comment: "left the following comment on"
