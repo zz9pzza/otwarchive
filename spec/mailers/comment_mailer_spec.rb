@@ -13,5 +13,10 @@ describe CommentMailer do
       text = "From: Archive of Our Own <#{ArchiveConfig.RETURN_ADDRESS}>"
       email.encoded.should =~ /#{text}/
     end
+
+    it "should have no missing translations" do
+     email.encoded.should_not =~ /translation missing:/
+    end
+
   end
 end
