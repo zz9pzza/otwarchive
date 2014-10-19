@@ -78,9 +78,9 @@ end
 
 Given /^I am logged out$/ do
   visit logout_path
-  assert !UserSession.find
+  #assert !UserSession.find
   visit admin_logout_path
-  assert !AdminSession.find
+  #assert !AdminSession.find
 end
 
 Given /^I log out$/ do
