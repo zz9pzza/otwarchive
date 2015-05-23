@@ -40,3 +40,39 @@ en:
           friend at %{invitation_page}.
           Cheers, 
           %{archive_name}
+    claim_notification:
+      subject: "[%{app_name}] Works uploaded" 
+    batch_subscription_notification:
+      subject_linker: "and %{extra} more"
+    invite_request_declined:
+      subject: "[%{app_name}] Additional Invite Code Request Declined"
+    archive_notification:
+      subject: "[%{app_name}] Admin Message - %{subject}"
+    challenge_assignment_notification:
+      subject: "[%{app_name}][%{title}] Your Assignment!"
+    signup_notification:
+      subject: "[%{app_name}] Confirmation"
+    reset_password:
+      subject: "[%{app_name}] Generated password"
+    change_email:
+      subject: "[%{app_name}] Email changed"
+    coauthor_notification:
+      subject: "[%{app_name}] Co-Author Notification"
+    related_work_notification:
+      subject: "[%{app_name}] Related work notification"
+    recipient_notification:
+      no_subject_collection: "[%{app_name}] [%{collection_title}] A Gift Work For You - From %{collection_title}"
+      subject_collection: "[%{app_name}] A Gift Work For You"
+    prompter_notification:
+      subject: "[%{app_name}] A Response to your Prompt"
+    edit_work_notification:
+      subject: "[%{app_name}] Your story has been updated"
+    delete_work_notification:
+      subject: "[%{app_name}] Your work has been deleted"
+    admin_deleted_work_notification:
+      subject: "[%{app_name}] Your work has been deleted by an Admin"
+    admin_hidden_work_notification:
+      subject: "[%{app_name}] Your work has been hidden by the Abuse Team"
+    delete_signup_notification:
+      subject: "[%{app_name}] Your sign-up for %{collection} has been deleted"
+
