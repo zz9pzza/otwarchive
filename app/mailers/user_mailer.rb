@@ -191,6 +191,7 @@ class UserMailer < BulletproofMailer::Base
       to: @assigned_user.email,
       subject: "#{t 'user_mailer.challenge_assignment_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME, title: @collection.title}"
     )
+    end
     ensure
       I18n.locale = I18n.default_locale
   end
