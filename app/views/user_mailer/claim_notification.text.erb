@@ -1,7 +1,7 @@
 <% content_for :message do %>
-  Hello from the Archive of Our Own!
+  <=% t 'user_mailer.claim_notification.text.hello' %>
 
-  You're receiving this e-mail because you had works in a fanworks archive that has been imported by Open Doors (http://opendoors.transformativeworks.org) into the Archive of Our Own (AO3 - <%= root_url %>). Because this e-mail address is connected to one registered on the imported archive, the associated fanworks (listed below) have been automatically added to your AO3 account.
+  <=% t 'user_mailer.claim_notification.text.part1', open_doors: 'http://opendoors.transformativeworks.org', ao3_root: root_url %>
 
   You can read announcements about recent archive moves at AO3 News (<%= root_url %>admin_posts?tag=18), and find additional information on Open Doors's FAQ page (http://opendoors.transformativeworks.org/faq) or tutorials page (http://opendoors.transformativeworks.org/tutorials). For any questions not answered in the FAQ, tutorials, or this e-mail, please contact AO3 Support at <%= root_url %>support.
 
