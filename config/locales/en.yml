@@ -28,7 +28,23 @@ en:
           html: "Sent by <b>%{sent_by}</b>."
           text: "Sent by %{sent_by}."
   user_mailer:
+    any: "Any"
     hello: "Dear %{user},"
+    chapters: "Chapters:"
+    fandom: "Fandom:"
+    rating: "Rating:"
+    warning: "Warning:"
+    warnings: "Warnings:"
+    relationships: "Relationships:"
+    characters: "Characters:"
+    additional_tags: "Additional Tags:"
+    optional_tags: "Optional Tags:"
+    series: "Series:"
+    summary: "Summary:"
+    recipient: "Recipient:"
+    prompts: "Prompts:"
+    category: "Category:"
+    description: "Description:"
     invite_increase_notification:
       subject: "[%{app_name}] New Invitations"
       html:  "<p> Hi %{login}! </p>\n\
@@ -92,15 +108,6 @@ en:
       new_chapter_of: "new chapter of"
       work: "work:"
       chapter_summary: "Chapter Summary:"
-      chapters: "Chapters:"
-      fandom: "Fandom:"
-      rating: "Rating:"
-      warning: "Warning:"
-      relationships: "Relationships:"
-      characters: "Characters:"
-      additional_tags: "Additional Tags:"
-      series: "Series:"
-      summary: "Summary:"
       text:
         footer: "You're receiving this email because you've subscribed to %{who}. Follow the link to unsubscribe if you no longer wish to receive updates: %{url}"
       html:
@@ -116,6 +123,19 @@ en:
       subject: "[%{app_name}] Admin Message - %{subject}"
     challenge_assignment_notification:
       subject: "[%{app_name}][%{title}] Your Assignment!"
+      no_body: "None: contact a moderator for help!"
+      prompt_url: "Prompt URL:"
+      time_due: "This assignment is due at:"
+      dashboard: "your archive dashboard"
+      challenge_profile: "the challenge profile page"
+      html:
+        part1: "You have been assigned the following request in the %{collection} challenge at the Archive of Our Own!"
+        dashboard: "You can look up this assignment from %{dashbard}"
+        footer: "You're receiving this email because you signed up for the %{collection} challenge. For more information about this challenge and contact information for the moderators, please visit %{collection_profile}"
+      text:
+        part1: "You have been assigned the following request in the %{collection_title} (%{collection_url}) challenge at the Archive of Our Own!"
+        dashboard: "You can look up this assignment from your archive dashboard at %{user_assignments_url}"
+        footer: "You're receiving this email because you signed up for the %{title} challenge %{collection_url} . For more information about this challenge and contact information for the moderators, please see %{collection_profile_url}"
     signup_notification:
       subject: "[%{app_name}] Confirmation"
     reset_password:
