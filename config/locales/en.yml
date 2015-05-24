@@ -85,6 +85,25 @@ en:
                Organization for Transformative Works
     batch_subscription_notification:
       subject_linker: "and %{extra} more"
+      backdated: "backdated"
+      new: "new"
+      posted_a: "posted a"
+      new_chapter_of: "new chapter of"
+      work: "work:"
+      chapter_summary: "Chapter Summary:"
+      chapters: "Chapters:"
+      fandom: "Fandom:"
+      rating: "Rating:"
+      warning: "Warning:"
+      relationships: "Relationships:"
+      characters: "Characters:"
+      additional_tags: "Additional Tags:"
+      series: "Series:"
+      summary: "Summary:"
+      text:
+        footer: "You're receiving this email because you've subscribed to %{who}. Follow the link to unsubscribe if you no longer wish to receive updates: %{url}"
+      html:
+        footer: "You're receiving this email because you've subscribed to %{who}. Follow the link to unsubscribe if you no longer wish to receive updates."
     invite_request_declined:
       subject: "[%{app_name}] Additional Invite Code Request Declined"
     archive_notification:
