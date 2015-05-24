@@ -1,11 +1,12 @@
 <% content_for :message do %>
-  <p><%= ts("Dear #{style_bold(@user.login)}, ").html_safe%></p>
+  <p><%= t 'user_mailer.invite_request_declined.html.hello', user: style_bold(@user.login) %>
 
-  <p><%= ts("We regret to inform you that your request for #{@total} new ") %><%= @total == 1 ? ts("invitation") : ts("invitations") %><%= ts(" cannot be fulfilled at this time.") %> </p>
-  <p><%= ts("Your request was: ") %></p>
+  <% if @total == 1 then invitation = t 'user_mailer.invite_request_declined.invitation' else invitation = t 'user_mailer.invite_request_declined.invitations' end %>
+  <p><%= t 'user_mailer.invite_request_declined.html.decline', total: @total, invitation: invitation  %></p>
+  <p><%= t'user_mailer.invite_request_declined.html.decline_reason' %></p>
   <p><%= style_quote(@reason) %></p>
 
-  <p>Regards,</p>
+  <p><%= t'user_mailer.invite_request_declined.html.regards' %></p>
   <p><%= style_link(ArchiveConfig.APP_SHORT_NAME, root_path) %></p>
 <% end %>
 
