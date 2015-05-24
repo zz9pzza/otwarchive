@@ -1,12 +1,12 @@
 <% content_for :message do %>
-  <p><%= t 'user_mailer.invite_request_declined.html.hello', user: style_bold(@user.login) %>
+  <p><%= t 'user_mailer.invite_request_declined.hello', user: style_bold(@user.login) %>
 
   <% if @total == 1 then invitation = t 'user_mailer.invite_request_declined.invitation' else invitation = t 'user_mailer.invite_request_declined.invitations' end %>
-  <p><%= t 'user_mailer.invite_request_declined.html.decline', total: @total, invitation: invitation  %></p>
-  <p><%= t'user_mailer.invite_request_declined.html.decline_reason' %></p>
+  <p><%= t 'user_mailer.invite_request_declined.decline', total: @total, invitation: invitation  %></p>
+  <p><%= t 'user_mailer.invite_request_declined.decline_reason' %></p>
   <p><%= style_quote(@reason) %></p>
 
-  <p><%= t'user_mailer.invite_request_declined.html.regards' %></p>
+  <p><%= t 'user_mailer.invite_request_declined.regards' %></p>
   <p><%= style_link(ArchiveConfig.APP_SHORT_NAME, root_path) %></p>
 <% end %>
 
