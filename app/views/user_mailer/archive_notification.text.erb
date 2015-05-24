@@ -1,5 +1,5 @@
 <% content_for :message do %>
-Dear <%= @user.login %>,
+<%= t 'user_mailer.hello', user: @user.login %>
   
 <%= to_plain_text(raw @message) %>
 <% end %>

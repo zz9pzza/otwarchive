@@ -1,5 +1,5 @@
 <% content_for :message do %>
-<%= t 'user_mailer.invite_request_declined.hello', user: @user.login %>
+<%= t 'user_mailer.hello', user: @user.login %>
 <% if @total == 1 then invitation = t 'user_mailer.invite_request_declined.invitation' else invitation = t 'user_mailer.invite_request_declined.invitations' end %>
 <%= t 'user_mailer.invite_request_declined.html.decline', total: @total, invitation: invitation  %>
 <%= t 'user_mailer.invite_request_declined.decline_reason' %>

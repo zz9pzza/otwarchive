@@ -1,7 +1,5 @@
 <% content_for :message do %>
-  <p>
-    Dear <%= style_bold(@user.login) %>,
-  </p>
+<p><%= t 'user_mailer.hello', user: style_bold(@user.login) %>
   
   <p>
     <%=raw @message %>
