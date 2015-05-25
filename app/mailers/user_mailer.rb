@@ -197,6 +197,7 @@ class UserMailer < BulletproofMailer::Base
   end
 
   # Asks a user to validate and activate their new account
+  # I am here on i18n
   def signup_notification(user_id)
     @user = User.find(user_id)
     I18n.with_locale(Locale.find(@user.preference.preferred_locale).iso) do
