@@ -67,6 +67,9 @@ class UserInviteRequestsController < ApplicationController
     params[:requests].each_pair do |id, quantity|
       unless quantity.blank?
         request = UserInviteRequest.find(id)
+        if quantity.to_i == 0 then
+          UserMailer.invite_request_declined(request.user_id, request.quantity.to_i, request.reason).deliver
+        end
         request.quantity = quantity.to_i
         request.save!
       end
