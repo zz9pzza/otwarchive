@@ -28,6 +28,7 @@ en:
           html: "Sent by <b>%{sent_by}</b>."
           text: "Sent by %{sent_by}."
   user_mailer:
+    hello: "Dear %{user},"
     invite_increase_notification:
       subject: "[%{app_name}] New Invitations"
       html:  "<p> Hi %{login}! </p>\n\
@@ -42,8 +43,7 @@ en:
           %{archive_name}
     invite_request_declined:
       subject: "[%{app_name}] Additional Invite Code Request Declined"
-      invitation: "invitation"
       invitations: "invitations"
-      decline: "We regret to inform you that your request for %{total} %{invitation} cannot be fulfilled at this time."
+      decline_part1: "We regret to inform you that your request for %{total} %{invitation} cannot be fulfilled at this time."
       decline_reason: "Your request was:"
       regards: "Regards,"

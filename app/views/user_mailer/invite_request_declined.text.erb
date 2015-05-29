@@ -1,7 +1,7 @@
 <% content_for :message do %>
 <%= t 'user_mailer.hello', user: @user.login %>
 
-<%= t ('user_mailer.invite_request_declined.decline', total: @total, invitation: invitation: @total == 1 ? t('user_mailer.invite_request_declined.invitation') : t ('user_mailer.invite_request_declined.invitations') )  %>
+<%= t('user_mailer.invite_request_declined.decline_part1', total: @total, invitation: @total == 1 ? t('user_mailer.invite_request_declined.invitation') : t('user_mailer.invite_request_declined.invitations') )  %>
 <%= t 'user_mailer.invite_request_declined.decline_reason' %>
 <%= to_plain_text(raw @reason) %>
 
