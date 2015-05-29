@@ -356,10 +356,9 @@ class UserMailer < BulletproofMailer::Base
   def admin_hidden_work_notification(creation_id, user_id)
     @user = User.find_by_id(user_id)
     @work = Work.find_by_id(creation_id)
-
     mail(
         to: @user.email,
-        subject: "#{t 'user_mailer.delete_signup_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME, collection: @signup.collection.title}"
+        subject: "#{t 'user_mailer.delete_signup_notification.subject', app_name: ArchiveConfig.APP_SHORT_NAME}"
     )
   end
 
