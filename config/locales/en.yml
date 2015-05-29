@@ -40,8 +40,10 @@ en:
           friend at %{invitation_page}.
           Cheers, 
           %{archive_name}
-    delete_signup_notification:
-      subject: "[%{app_name}] Your sign-up for %{collection} has been deleted"
-      hello: "Dear %{user},"
-      html:
-       part1: "Your work <i>%{title}</i> was deleted at"
+    invite_request_declined:
+      subject: "[%{app_name}] Additional Invite Code Request Declined"
+      invitation: "invitation"
+      invitations: "invitations"
+      decline: "We regret to inform you that your request for %{total} %{invitation} cannot be fulfilled at this time."
+      decline_reason: "Your request was:"
+      regards: "Regards,"
