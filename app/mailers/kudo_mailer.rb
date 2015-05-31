@@ -41,7 +41,7 @@ class KudoMailer < ActionMailer::Base
       end
       mail(
         to: user.email,
-        subject: t('mailer.kudos.you_have', app_name: ArchiveConfig.APP_SHORT_NAME)
+        subject: "[#{ArchiveConfig.APP_SHORT_NAME}] #{t 'mailer.kudos.you_have'}"
       )
     end
     ensure
