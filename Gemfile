@@ -4,7 +4,8 @@ ruby '2.0.0'
 
 gem 'bundler'
 
-gem 'rails', '3.2.21'
+gem 'rails', '4.0.13'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -65,8 +66,6 @@ gem "escape_utils"
 
 gem 'jquery-rails', '>= 0.2.6'
 
-gem 'valium'
-
 gem 'best_in_place'
 
 gem 'timeliness'
@@ -80,7 +79,7 @@ gem "google_visualr", ">= 2.1"
 # gem 'copycopter_client', '~> 2.0.1'
 
 # Globalize for translations
-gem 'globalize', '~> 3.1.0'
+gem 'globalize', '4.0.2'
 
 # Coveralls for code test coverage
 gem 'coveralls', require: false
