@@ -27,6 +27,13 @@ Otwarchive::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
+   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation can not be found)
+  config.i18n.fallbacks = true
+  # Make it clear we are on Dev
+  config.rack_dev_mark.enable = true
+  config.rack_dev_mark.theme = [:title, Rack::DevMark::Theme::GithubForkRibbon.new(position: 'left', color: 'green' , fixed: 'true' )]
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

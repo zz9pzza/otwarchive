@@ -5,6 +5,7 @@ ruby '2.0.0'
 gem 'bundler'
 
 gem 'rails', '4.0.13'
+gem 'rails-observers'
 
 
 # Bundle edge Rails instead:

@@ -14,6 +14,17 @@ Otwarchive::Application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
+  # Use a different cache store in production
+  config.cache_store = :dalli_store, YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL0'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL1'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL2'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL3'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL4'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL5'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL6'],
+                                     YAML.load_file("#{Rails.root}/config/local.yml")['MEMCACHED_URL7'],
+                          { :namespace =>  'ao3-v1', :expires_in =>  0, :compress => true , :pool_size => 10 }
+
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
   # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
@@ -73,7 +84,7 @@ Otwarchive::Application.configure do
   config.active_support.deprecation = :notify
 
   # Disable automatic flushing of the log to improve performance.
-  # config.autoflush_log = false
+  config.autoflush_log = false
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
