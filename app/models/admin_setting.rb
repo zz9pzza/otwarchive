@@ -14,57 +14,73 @@ class AdminSetting < ActiveRecord::Base
   belongs_to :default_skin, :class_name => 'Skin'
 
   def self.invite_from_queue_enabled?
-    self.first ? self.first.invite_from_queue_enabled? : ArchiveConfig.INVITE_FROM_QUEUE_ENABLED
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.invite_from_queue_enabled? : ArchiveConfig.INVITE_FROM_QUEUE_ENABLED
   end
   def self.request_invite_enabled?
-    self.first ? self.first.request_invite_enabled? : false
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.request_invite_enabled? : false
   end
   def self.invite_from_queue_at
-    self.first.invite_from_queue_at
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings.invite_from_queue_at
   end
   def self.invite_from_queue_number
-    self.first ? self.first.invite_from_queue_number : ArchiveConfig.INVITE_FROM_QUEUE_NUMBER
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.invite_from_queue_number : ArchiveConfig.INVITE_FROM_QUEUE_NUMBER
   end
   def self.invite_from_queue_frequency
-    self.first ? self.first.invite_from_queue_frequency : ArchiveConfig.INVITE_FROM_QUEUE_FREQUENCY
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.invite_from_queue_frequency : ArchiveConfig.INVITE_FROM_QUEUE_FREQUENCY
   end
   def self.account_creation_enabled?
-    self.first ? self.first.account_creation_enabled? : ArchiveConfig.ACCOUNT_CREATION_ENABLED
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.account_creation_enabled? : ArchiveConfig.ACCOUNT_CREATION_ENABLED
   end
   def self.days_to_purge_unactivated
-    self.first ? self.first.days_to_purge_unactivated : ArchiveConfig.DAYS_TO_PURGE_UNACTIVATED
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.days_to_purge_unactivated : ArchiveConfig.DAYS_TO_PURGE_UNACTIVATED
   end
   def self.suspend_filter_counts?
-    self.first ? self.first.suspend_filter_counts? : false
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.suspend_filter_counts? : false
   end
   def self.disable_filtering?
-    self.first ? self.first.disable_filtering? : false
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.disable_filtering? : false
   end
   def self.enable_test_caching?
-    self.first ? self.first.enable_test_caching? : false
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.enable_test_caching? : false
   end
   def self.cache_expiration
-    self.first ? self.first.cache_expiration : 10
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.cache_expiration : 10
   end
   def self.tag_wrangling_off?
-    self.first ? self.first.tag_wrangling_off? : false
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.tag_wrangling_off? : false
   end
   def self.guest_downloading_off?
-    self.first ? self.first.guest_downloading_off? : false
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.guest_downloading_off? : false
   end
   def self.default_skin
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
     default_skin=Rails.cache.fetch(default_skin_cache_key){Skin.default}
-    self.first ? (self.first.default_skin_id ? self.first.default_skin : default_skin) : default_skin
+    admin_settings ? (admin_settings.default_skin_id ? admin_settings.default_skin : default_skin) : default_skin
   end
   def self.stats_updated_at
-    self.first ? self.first.stats_updated_at : nil
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    admin_settings ? admin_settings.stats_updated_at : nil
   end
 
   # run once a day from cron
   def self.check_queue
-    if self.invite_from_queue_enabled? && InviteRequest.count > 0
-      if Date.today >= self.invite_from_queue_at.to_date
-        new_date = Time.now + self.invite_from_queue_frequency.days
+    admin_settings = Rails.cache.fetch("admin_settings"){AdminSetting.first}
+    if admin_settings.invite_from_queue_enabled? && InviteRequest.count > 0
+      if Date.today >= admin_settings.invite_from_queue_at.to_date
+        new_date = Time.now + admin_settings.invite_from_queue_frequency.days
         self.first.update_attribute(:invite_from_queue_at, new_date)
         InviteRequest.invite
       end
