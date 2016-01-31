@@ -195,8 +195,8 @@ class Work < ActiveRecord::Base
    "/v1/#{Rails.cache.fetch(imported_works_generation)}/#{url}"
   end
 
-  def invalidate_imported_work_cache(work)
-    unless work.imported_from_url.nil?
+  def invalidate_imported_work_cache
+    unless self.imported_from_url.nil?
       Rails.cache.increment('/v1/work_imported_key/generation')
     end
   end
