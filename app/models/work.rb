@@ -177,7 +177,7 @@ class Work < ActiveRecord::Base
 
   before_save :post_first_chapter, :set_word_count
 
-  after_save :save_chapters, :save_parents, :save_new_recipients
+  after_save :save_chapters, :save_parents, :save_new_recipients 
   before_create :set_anon_unrevealed, :set_author_sorting
   before_update :set_author_sorting
 
@@ -185,7 +185,21 @@ class Work < ActiveRecord::Base
   before_update :validate_tags
   after_update :adjust_series_restriction
   
-  after_save :expire_caches
+  after_save :expire_caches, :invalidate_imported_work_cache
+
+  def imported_works_generation
+   '/v1/work_imported_key/generation'
+  end
+
+  def imported_work_cache_key(url)
+   "/v1/#{Rails.cache.fetch(imported_works_generation)}/#{url}"
+  end
+
+  def invalidate_imported_work_cache(work)
+    unless work.imported_from_url.nil?
+      Rails.cache.increment('/v1/work_imported_key/generation')
+    end
+  end
   
   def expire_caches
     self.pseuds.each do |pseud|
@@ -283,15 +297,17 @@ class Work < ActiveRecord::Base
   # 2. first exact match with variants of the provided url
   # 3. first match on variants of both the imported_from_url and the provided url if there is a partial match
   def self.find_by_url(url)
-    url = UrlFormatter.new(url)
-    Work.where(:imported_from_url => url.original).first ||
-      Work.where(:imported_from_url => [url.minimal, url.no_www, url.with_www, url.encoded, url.decoded]).first ||
-      Work.where("imported_from_url LIKE ?", "%#{url.minimal_no_http}%").select { |w|
-        work_url = UrlFormatter.new(w.imported_from_url)
-        ['original', 'minimal', 'no_www', 'with_www', 'encoded', 'decoded'].any? { |method|
-          work_url.send(method) == url.send(method)
-        }
-      }.first
+    Rails.cache.fetch(imported_work_cache_key(url)) do
+      url = UrlFormatter.new(url)
+      Work.where(:imported_from_url => url.original).first ||
+        Work.where(:imported_from_url => [url.minimal, url.no_www, url.with_www, url.encoded, url.decoded]).first ||
+        Work.where("imported_from_url LIKE ?", "%#{url.minimal_no_http}%").select { |w|
+          work_url = UrlFormatter.new(w.imported_from_url)
+          ['original', 'minimal', 'no_www', 'with_www', 'encoded', 'decoded'].any? { |method|
+            work_url.send(method) == url.send(method)
+          }
+        }.first
+    end
   end
 
   ########################################################################
