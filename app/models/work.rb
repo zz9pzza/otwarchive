@@ -185,23 +185,26 @@ class Work < ActiveRecord::Base
   before_update :validate_tags
   after_update :adjust_series_restriction
   
-  after_save :expire_caches, :invalidate_imported_work_cache
+  after_save :expire_caches
 
   def self.imported_works_generation
+    Rails.cache.fetch(imported_works_generation_key) do 0 end
+  end
+
+  def self.imported_works_generation_key
    '/v1/work_imported_key/generation'
   end
 
   def self.imported_work_cache_key(url)
-   "/v1/#{Rails.cache.fetch(imported_works_generation)}/#{url}"
+    "/v1/import_works/#{imported_works_generation}/#{url}"
   end
 
-  def invalidate_imported_work_cache
-    unless self.imported_from_url.nil?
-      Rails.cache.increment('/v1/work_imported_key/generation')
-    end
-  end
-  
   def expire_caches
+    # Clear the imported works cache if needed. 
+    unless self.imported_from_url.nil? then
+      Rails.cache.increment(Work.imported_works_generation_key)
+    end
+
     self.pseuds.each do |pseud|
       pseud.update_works_index_timestamp!
       pseud.user.update_works_index_timestamp!
