@@ -187,11 +187,11 @@ class Work < ActiveRecord::Base
   
   after_save :expire_caches, :invalidate_imported_work_cache
 
-  def imported_works_generation
+  def self.imported_works_generation
    '/v1/work_imported_key/generation'
   end
 
-  def imported_work_cache_key(url)
+  def self.imported_work_cache_key(url)
    "/v1/#{Rails.cache.fetch(imported_works_generation)}/#{url}"
   end
 
@@ -297,7 +297,7 @@ class Work < ActiveRecord::Base
   # 2. first exact match with variants of the provided url
   # 3. first match on variants of both the imported_from_url and the provided url if there is a partial match
   def self.find_by_url(url)
-    Rails.cache.fetch(imported_work_cache_key(url)) do
+    Rails.cache.fetch(self.imported_work_cache_key(url)) do
       url = UrlFormatter.new(url)
       Work.where(:imported_from_url => url.original).first ||
         Work.where(:imported_from_url => [url.minimal, url.no_www, url.with_www, url.encoded, url.decoded]).first ||
