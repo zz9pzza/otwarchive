@@ -107,32 +107,32 @@ gem 'kgio'
 
 
 group :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.3.3'
   gem 'pickle'
   gem 'shoulda'
   gem 'factory_girl'
-  gem 'capybara'
+  gem 'capybara', '~> 2.6.2'
   gem 'database_cleaner'
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails', '~> 1.4.3', require: false
   gem 'gherkin' 
   gem 'launchy'    # So you can do Then show me the page
   gem 'delorean'
-  gem 'faker'
+  gem 'faker', '~> 1.6.3'
   # Record and replay data from external URLs
-  gem "vcr", "~> 2.5.0"
-  gem 'webmock', '~> 1.8.8'
+  gem "vcr", "~> 3.0.1"
+  gem 'webmock', '~> 1.24.2'
   # Code coverage
-  gem 'simplecov', :require => false
+  gem 'simplecov', '~> 0.11.2', :require => false
   gem 'email_spec'
 end
 
 group :test, :development do
-  gem 'pry'
+  gem 'pry', '~> 0.10.3'
   gem 'whiny_validation'
 end
 
 group :test, :development, :staging  do
-  gem 'bullet'
+  gem 'bullet', '~> 5.0.0'
 end
 
 # Deploy with Capistrano
