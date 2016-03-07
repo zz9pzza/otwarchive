@@ -112,7 +112,7 @@ group :test do
   gem 'shoulda'
   gem 'factory_girl', '~> 4.5.0'
   gem 'capybara'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '~> 1.5.1'
   gem 'cucumber-rails', '~> 1.4.3', require: false
   gem 'gherkin' 
   gem 'launchy'    # So you can do Then show me the page
