@@ -35,7 +35,7 @@ ActionController::Base.allow_rescue = false
 Capybara.configure do |config|
   config.match = :prefer_exact
   config.ignore_hidden_elements = false
-  config.default_wait_time = 25
+  config.default_max_wait_time = 25
 end
 
 Before '@disable_caching' do
