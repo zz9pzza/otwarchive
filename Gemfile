@@ -120,7 +120,7 @@ group :test do
   gem 'faker', '~> 1.6.3'
   # Record and replay data from external URLs
   gem "vcr", "~> 2.5.0"
-  gem 'webmock', '~> 1.8.8'
+  gem 'webmock', '~> 1.24.2'
   # Code coverage
   gem 'simplecov', :require => false
   gem 'email_spec'
