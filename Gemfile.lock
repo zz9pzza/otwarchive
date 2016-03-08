@@ -95,7 +95,7 @@ GEM
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
     dalli (2.7.5)
-    database_cleaner (1.0.1)
+    database_cleaner (1.5.1)
     delorean (2.1.0)
       chronic
     diff-lcs (1.2.5)
@@ -391,7 +391,7 @@ DEPENDENCIES
   css_parser
   cucumber-rails
   dalli
-  database_cleaner
+  database_cleaner (~> 1.5.1)
   delorean
   elasticsearch
   email_spec (~> 1.6.0)
