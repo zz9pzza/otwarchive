@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 ruby '2.2.5'
+gem 'test-unit', '~> 3.0'
+
 
 gem 'bundler'
 
@@ -107,7 +109,6 @@ gem 'kgio', '2.10.0'
 
 
 group :test do
-  gem 'test-unit', '~> 3.0'
   gem 'rspec', '~> 3.4'
   gem 'rspec-rails', '~> 3.4.2'
   gem 'pickle'
