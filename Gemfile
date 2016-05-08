@@ -20,8 +20,6 @@ gem 'redis', ">=3.0"
 gem 'redis-namespace'
 
 # Here are all our application-specific gems
-gem 'test-unit', '~> 3.0'
-gem 'minitest'
 
 # Used to convert strings to ascii
 gem 'unicode'
@@ -131,6 +129,8 @@ group :test, :development do
   gem 'pry', '~> 0.10.3'
   gem 'whiny_validation'
   gem 'factory_girl', '~> 4.5.0'
+  gem 'test-unit', '~> 3.0'
+  gem 'minitest'
 end
 
 group :development do
