@@ -1,9 +1,6 @@
 source 'http://rubygems.org'
 
 ruby '2.2.5'
-gem 'test-unit', '~> 3.0'
-
-
 gem 'bundler'
 
 gem 'rails', '3.2.22.2'
@@ -107,7 +104,6 @@ gem 'connection_pool'
 gem 'dalli'
 gem 'kgio', '2.10.0'
 
-
 group :test do
   gem 'rspec', '~> 3.4'
   gem 'rspec-rails', '~> 3.4.2'
@@ -133,6 +129,8 @@ group :test, :development do
   gem 'pry', '~> 0.10.3'
   gem 'whiny_validation'
   gem 'factory_girl', '~> 4.5.0'
+  gem 'test-unit', '~> 3.0'
+  gem 'minitest'
 end
 
 group :development do
