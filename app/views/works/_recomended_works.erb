@@ -1,0 +1,7 @@
+
+<!-- Begin recomendations -->
+<h3>If you liked this work...</h3>
+<% @recs.each do |rec| %>
+  <%= render 'works/work_recomended_blurb', :work => rec[1]['work']['work'], :score => rec[1]['score'], :tag_groups => rec[1]['tag_groups'] %>
+<% end %>
+<!-- End recomendations -->

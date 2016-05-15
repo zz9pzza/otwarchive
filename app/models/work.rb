@@ -1406,7 +1406,7 @@ class Work < ActiveRecord::Base
   end
 
   def recomended_works_key
-    "/recomendation/#{self.id}"
+    "/recomendation/work/#{self.id}"
   end
 
   def find_recomended_works
@@ -1455,7 +1455,7 @@ class Work < ActiveRecord::Base
     end
     recs = {}
     recommend.each do |workid, score|
-      recs[workid]={score: score.to_f/kudos.size, title: works[workid].title}
+      recs[workid]={score: score.to_f/kudos.size, work: works[workid], tag_groups: works[workid].tag_groups}
     end
     # Now return the top 4
     recs.sort_by { |_, v| -v[:score] }.first(4)
