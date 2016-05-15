@@ -1405,34 +1405,56 @@ class Work < ActiveRecord::Base
     filters.by_type('Relationship').first_class.count == 1
   end
 
+  def recomended_works_key
+    "/recomendation/#{self.id}"
+  end
+
   def find_recomended_works
+    recs=[]
+    REDIS_RECOMMEND.smembers(self.recomended_works_key).each do |json|
+      recs << JSON.parse(json)
+    end
+    recs
+  end
+
+  def recomended_works_update_cache
+    recs=self.find_recommend_works_full
+    key = self.recomended_works_key
+    REDIS_RECOMMEND.del(key)
+    recs.each do |rec|
+      REDIS_RECOMMEND.sadd(key,rec.to_json)
+    end
+  end
+
+  def find_recommend_works_full
+    # http://seananmcguire.tumblr.com/post/144351741850/hannahrhen-if-ao3-had-an-if-you-liked-this
     kudos=Kudo.where("kudos.pseud_id IS NOT NULL AND  kudos.commentable_id =#{ self.id }")
-    recomend = {}
+    recommend = {}
     pseuds = []
     kudos.each do |k| pseuds << k.pseud_id end
     pseuds.each do |p|
       Kudo.where(pseud_id: p).each do |k|
-        if recomend[k.commentable_id].nil?
-          recomend[k.commentable_id] = 1
+        if recommend[k.commentable_id].nil?
+          recommend[k.commentable_id] = 1
         else
-          recomend[k.commentable_id] += 1
+          recommend[k.commentable_id] += 1
         end
       end
     end
     works={}
     # Remove the work we first thought about.
-    recomend.delete(self.id)
+    recommend.delete(self.id)
     fandoms_of_original = self.filters.by_type('Fandom').map {|f| f.id}
-    recomend.each do |workid, score|
+    recommend.each do |workid, score|
       works[workid]=Work.find(workid)
       fandoms_or_rec = works[workid].filters.by_type('Fandom').map {|f| f.id}
       if ( fandoms_of_original & fandoms_or_rec ).size == 0
         # Fandoms do not intersec
-        recomend.delete(workid)
+        recommend.delete(workid)
       end
     end
     recs = {}
-    recomend.each do |workid, score|
+    recommend.each do |workid, score|
       recs[workid]={score: score.to_f/kudos.size, title: works[workid].title}
     end
     # Now return the top 4
