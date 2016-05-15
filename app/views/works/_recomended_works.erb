@@ -1,7 +1,16 @@
 
 <!-- Begin recomendations -->
-<h3>If you liked this work...</h3>
+<h3 class="landmark heading">If you liked this work...</h3>
+<ul>
+<ol>
 <% @recs.each do |rec| %>
-  <%= render 'works/work_recomended_blurb', :work => rec[1]['work']['work'], :score => rec[1]['score'], :tag_groups => rec[1]['tag_groups'] %>
+  <% work = Work.find_by_id(rec[0]) %>
+  <% unless work.nil? %>
+    <li class="work blurb group" role="article">
+    <%= render 'works/work_recomended_blurb', :work => work, :score => rec[1]['score'] %>
+    </li>
+  <% end %>
 <% end %>
+</ol>
+</ul>
 <!-- End recomendations -->

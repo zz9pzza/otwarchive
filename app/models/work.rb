@@ -1455,7 +1455,7 @@ class Work < ActiveRecord::Base
     end
     recs = {}
     recommend.each do |workid, score|
-      recs[workid]={score: score.to_f/kudos.size, work: works[workid], tag_groups: works[workid].tag_groups}
+      recs[workid]={score: score.to_f/kudos.size, work: workid}
     end
     # Now return the top 4
     recs.sort_by { |_, v| -v[:score] }.first(4)
