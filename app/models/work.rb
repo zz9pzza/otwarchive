@@ -51,6 +51,7 @@ class Work < ActiveRecord::Base
   acts_as_commentable
   has_many :total_comments, :class_name => 'Comment', :through => :chapters
   has_many :kudos, :as => :commentable, :dependent => :destroy
+  has_many :recomendations, :as => :work_id, :dependent => :destroy
 
   belongs_to :language
   belongs_to :work_skin
@@ -1404,16 +1405,15 @@ class Work < ActiveRecord::Base
     filters.by_type('Relationship').first_class.count == 1
   end
 
-  def recomended
-    kudos=Kudo.where("kudos.pseud_id IS NOT NULL AND  kudos.commentable_id =#{ id }")
+  def find_recomended_works
+    kudos=Kudo.where("kudos.pseud_id IS NOT NULL AND  kudos.commentable_id =#{ self.id }")
     recomend = {}
-    pseuds = [] 
+    pseuds = []
     kudos.each do |k| pseuds << k.pseud_id end
-    pseuds.each do |p| 
+    pseuds.each do |p|
       Kudo.where(pseud_id: p).each do |k|
-        puts k.commentable_id
         if recomend[k.commentable_id].nil?
-          recomend[k.commentable_id] = 1 
+          recomend[k.commentable_id] = 1
         else
           recomend[k.commentable_id] += 1
         end
@@ -1421,11 +1421,11 @@ class Work < ActiveRecord::Base
     end
     works={}
     # Remove the work we first thought about.
-    recomend.delete(id)
+    recomend.delete(self.id)
     fandoms_of_original = self.filters.by_type('Fandom').map {|f| f.id}
     recomend.each do |workid, score|
       works[workid]=Work.find(workid)
-      fandoms_or_rec = works[workid].filters.by_type('Fandom').map {|f| f.id} 
+      fandoms_or_rec = works[workid].filters.by_type('Fandom').map {|f| f.id}
       if ( fandoms_of_original & fandoms_or_rec ).size == 0
         # Fandoms do not intersec
         recomend.delete(workid)
@@ -1436,8 +1436,9 @@ class Work < ActiveRecord::Base
       recs[workid]={score: score.to_f/kudos.size, title: works[workid].title}
     end
     # Now return the top 4
-    rec.sort_by { |_, v| -v[:score] }.first(4)
+    recs.sort_by { |_, v| -v[:score] }.first(4)
   end
+
 
   # Quick and dirty categorization of the most obvious stuff
   # To be replaced by actual categories
