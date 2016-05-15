@@ -1411,7 +1411,7 @@ class Work < ActiveRecord::Base
 
   def find_recomended_works
     recs=[]
-    REDIS_RECOMMEND.smembers(self.recomended_works_key).each do |json|
+    REDIS_RECOMMEND.smembers(self.recomended_works_key).reverse.each do |json|
       recs << JSON.parse(json)
     end
     recs
@@ -1421,7 +1421,7 @@ class Work < ActiveRecord::Base
     recs=self.find_recommend_works_full
     key = self.recomended_works_key
     REDIS_RECOMMEND.del(key)
-    recs.each do |rec|
+    recs.sort_by { |_, v| -v[:score] }.each do |rec|
       REDIS_RECOMMEND.sadd(key,rec.to_json)
     end
   end
