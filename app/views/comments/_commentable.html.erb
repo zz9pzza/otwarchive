@@ -8,6 +8,11 @@
       <li><%= link_to '&#8593; '.html_safe + ts('Top'), "#main" %></li>
     <% end %>
 
+    <% if @work %>
+      <li><a name="show_recomendations"><%= ts("Show Recomendations") %></a></li>
+      <li><a name="hide_recomendations" class="hidden"><%= ts("Hide Recomendations") %></a></li>
+    <% end %>
+
     <% if @work && @previous_chapter %>
       <li><%= link_to '&#8592;'.html_safe + ts('Previous Chapter'), [@work, @previous_chapter] %></li>
     <% end %>
