@@ -11,6 +11,7 @@
           <% end %>
         </span>
       <% end %>
+      <%= (score*100).to_i %>% match,
       <%= link_to work.title.html_safe, @collection ? collection_work_path(@collection, work) : work %>
       <%= ts('by') %>
         
