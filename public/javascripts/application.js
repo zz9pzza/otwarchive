@@ -420,6 +420,25 @@ function prepareDeleteLinks() {
   });
 }
 
+// Show/Hide recomendations
+$j(document).ready(function() {
+
+  $j('#show_recomendations').click(function(e){
+    e.preventDefault();
+    $j('div#recomendations').show();
+    $j('#show_recomendations').hide();
+    $j('#hide_recomendations').show();
+  });
+
+  $j('#hide_recomendations').click(function(e){
+    e.preventDefault();
+    $j('div#recomendations').hide();
+    $j('#show_recomendations').show();
+    $j('#hide_recomendations').hide();
+  });
+
+});
+
 /// Kudos
 $j(document).ready(function() {
   $j('#kudos_summary').click(function(e) {
