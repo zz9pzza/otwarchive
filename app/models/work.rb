@@ -1429,6 +1429,9 @@ class Work < ActiveRecord::Base
   def find_recommend_works_full
     # http://seananmcguire.tumblr.com/post/144351741850/hannahrhen-if-ao3-had-an-if-you-liked-this
     kudos=Kudo.where("kudos.pseud_id IS NOT NULL AND  kudos.commentable_id =#{ self.id }")
+    if kudos.size < 4
+     return {}
+    end
     recommend = {}
     pseuds = []
     kudos.each do |k| pseuds << k.pseud_id end

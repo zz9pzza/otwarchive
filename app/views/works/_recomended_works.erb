@@ -1,4 +1,4 @@
-
+<% cache("#{work.cache_key}/recommendations", :expires_in => 2.days) do %>
 <!-- Begin recomendations -->
 <div id="recomendations" class="hidden">
 <h3 class="landmark heading">If you liked this work...</h3>
@@ -16,3 +16,4 @@
 </ul>
 </div>
 <!-- End recomendations -->
+<% end %>

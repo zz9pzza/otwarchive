@@ -9,8 +9,11 @@
     <% end %>
 
     <% if @work %>
-      <li><a id="show_recomendations"><%= ts("Show Recomendations") %></a></li>
-      <li><a id="hide_recomendations" class="hidden"><%= ts("Hide Recomendations") %></a></li>
+      <% @recs = @work.find_recomended_works %>
+      <% unless @recs.blank? %>
+        <li><a id="show_recomendations"><%= ts("Show Recomendations") %></a></li>
+        <li><a id="hide_recomendations" class="hidden"><%= ts("Hide Recomendations") %></a></li>
+      <% end %>
     <% end %>
 
     <% if @work && @previous_chapter %>
@@ -73,7 +76,6 @@
 
   <%= flash_div :comment_error, :comment_notice %>
   <% if @work %>
-  <% @recs = @work.find_recomended_works %>
     <%= render "works/recomended_works", :work => @work, :rec => @recs %>
   <% end %>
   <% if @work && (@chapter.blank? || @chapter.posted?) %>
