@@ -1420,7 +1420,7 @@ class Work < ActiveRecord::Base
     recs=self.find_recommend_works_full
     key = self.recomended_works_key
     REDIS_RECOMMEND.del(key)
-    recs.sort_by { |_, v| -v[:score] }.each do |rec|
+    recs.each do |rec|
       REDIS_RECOMMEND.sadd(key,rec.to_json)
     end
   end
@@ -1459,8 +1459,6 @@ class Work < ActiveRecord::Base
     recommend.each do |workid, score|
       recs[workid]={score: score.to_f/kudos.size, work: workid}
     end
-    # Now return the top 4
-    recs.sort_by { |_, v| -v[:score] }.first(4)
   end
 
 
