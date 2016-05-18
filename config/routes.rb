@@ -257,6 +257,7 @@ Otwarchive::Application.routes.draw do
     resources :skins, :only => [:index]
     resources :stats, :only => [:index]
     resources :subscriptions, :only => [:index, :create, :destroy]
+    resources :recomendations, :only => [:index]
     resources :tag_sets, :controller => "owned_tag_sets", :only => [:index]
     resources :works do
       collection do
