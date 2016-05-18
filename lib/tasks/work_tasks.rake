@@ -15,4 +15,11 @@ namespace :work do
     end
   end
 
+  desc "Push recommendation jobs in to resque"
+  task(:create_recomendation_work => :environment) do
+    Work.find_each do |work|
+      work.async(:recomended_works_update_cache)
+    end
+  end
+
 end
