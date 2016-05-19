@@ -1413,7 +1413,7 @@ class Work < ActiveRecord::Base
   end
 
   def self.kudos_per_psued(id)
-    "/kudos_psued/{id}"
+    "/kudos_psued/#{id}"
   end
 
   def self.find_recomended_works(id)

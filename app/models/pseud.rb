@@ -415,6 +415,23 @@ class Pseud < ActiveRecord::Base
   def clear_icon
     self.icon = nil if delete_icon? && !icon.dirty?
   end
+
+  def recommended_based_on_favorites
+    
+  end
+
+  def recommended_based_on_kudos
+   recs = Hash.new(0)
+    Rails.cache.fetch(Work.kudos_per_psued(self.id),expires_in: 2.days) do 
+      Kudo.where(pseud_id: self.id) 
+    end.each do |k|
+      work_recs = Work.find_recomended_works(k.commentable_id)
+      work_recs.each do |work_rec|
+        recs[work_rec[0]] += work_rec[1]/work_recs.size.to_f
+      end
+    end
+   recs
+  end
   
   #################################
   ## SEARCH #######################
