@@ -1408,6 +1408,10 @@ class Work < ActiveRecord::Base
     "/recomendation/work/#{self.id}"
   end
 
+  def self.kudos_per_psued(id)
+    "/kudos_psued/{id}"
+  end
+
   def find_recomended_works
     recs=[]
     REDIS_RECOMMEND.smembers(self.recomended_works_key).reverse.each do |json|
@@ -1435,7 +1439,9 @@ class Work < ActiveRecord::Base
     pseuds = []
     kudos.each do |k| pseuds << k.pseud_id end
     pseuds.each do |p|
-      Kudo.where(pseud_id: p).each do |k|
+      Rails.cache.fetch(kudos_per_psued(p),expires_in: 2.days) do 
+        Kudo.where(pseud_id: p)
+      end.each do |k|
         if recommend[k.commentable_id].nil?
           recommend[k.commentable_id] = 1
         else
