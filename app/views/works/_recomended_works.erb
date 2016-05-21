@@ -1,14 +1,13 @@
-<% cache("#{work.cache_key}/recommendations", :expires_in => 2.days) do %>
 <!-- Begin recomendations -->
 <div id="recomendations" class="hidden">
 <h3 class="landmark heading">If you liked this work...</h3>
 <ul>
 <ol>
-<% @recs.sort_by { |a| a[1]["score"] }.reverse.first(4).each do |rec| %>
-  <% work = Work.find_by_id(rec[0]) %>
+<% @recs.sort_by { |a| a["computed_score"] }.reverse.first(6).each do |rec| %>
+  <% work = Work.find_by_id(rec["work"]) %>
   <% unless work.nil? %>
     <li class="work blurb group" role="article">
-    <%= render 'works/work_recomended_blurb', :work => work, :score => rec[1]['score'] %>
+    <%= render 'works/work_recomended_blurb', :work => work, :score => rec["computed_score"] %>
     </li>
   <% end %>
 <% end %>
@@ -16,4 +15,3 @@
 </ul>
 </div>
 <!-- End recomendations -->
-<% end %>

@@ -1416,16 +1416,19 @@ class Work < ActiveRecord::Base
     "/kudos_psued/#{id}"
   end
 
-  def self.find_recomended_works(id)
+  def self.find_recomended_works(work_id,user_id)
     recs=[]
-    REDIS_RECOMMEND.smembers(Work.recomended_works_key(id)).each do |json|
-      recs << JSON.parse(json)
+    max=1
+    REDIS_RECOMMEND.smembers(Work.recomended_works_key(work_id)).each do |json|
+      rec = JSON.parse(json)[1]
+      rec["computed_score"]=rec["score"]*0.4+rec["shared_fandoms"]*0.4+(rec["shared_fandoms"].nil? ? 1 : 0)*0.2
+      recs << rec
     end
     recs
   end
 
-  def find_recomended_works
-    Work.find_recomended_works(self.id)
+  def find_recomended_works(user_id)
+    Work.find_recomended_works(self.id,user_id)
   end
 
   def recomended_works_update_cache
@@ -1459,21 +1462,25 @@ class Work < ActiveRecord::Base
       end
     end
     works={}
+    recs = {}
     # Remove the work we first thought about.
     recommend.delete(self.id)
     fandoms_of_original = self.filters.by_type('Fandom').map {|f| f.id}
     recommend.each do |workid, score|
       works[workid]=Work.find(workid)
-      fandoms_or_rec = works[workid].filters.by_type('Fandom').map {|f| f.id}
-      if ( fandoms_of_original & fandoms_or_rec ).size == 0
+      fandoms_of_rec = works[workid].filters.by_type('Fandom').map {|f| f.id}
+      intersection = fandoms_of_original & fandoms_of_rec
+      if intersection.size == 0
         # Fandoms do not intersec
         recommend.delete(workid)
+      else 
+        recs[workid]={score: score.to_f/kudos.size, work: workid, \
+                      number_of_kudos: score,kudos: kudos.size, \
+                      shared_fandoms: intersection.size.to_f/(fandoms_of_original.size+fandoms_of_rec.size/2), \
+                      complete: works[workid].complete?}
       end
     end
-    recs = {}
-    recommend.each do |workid, score|
-      recs[workid]={score: score.to_f/kudos.size, work: workid}
-    end
+    recs
   end
 
 

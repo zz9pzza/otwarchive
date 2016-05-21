@@ -9,7 +9,7 @@
     <% end %>
 
     <% if @work %>
-      <% @recs = @work.find_recomended_works %>
+      <% @recs = @work.find_recomended_works(@user.nil? ? nil :  @user.id) %>
       <% unless @recs.blank? %>
         <li><a id="show_recomendations"><%= ts("Show Recomendations") %></a></li>
         <li><a id="hide_recomendations" class="hidden"><%= ts("Hide Recomendations") %></a></li>
