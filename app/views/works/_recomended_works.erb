@@ -3,11 +3,20 @@
 <h3 class="landmark heading">If you liked this work...</h3>
 <ul>
 <ol>
-<% @recs.sort_by { |a| a["computed_score"] }.reverse.first(6).each do |rec| %>
+<% @readings = {}
+   unless @current_user.nil? 
+     @reading_array=@current_user.readings.select("work_id")
+     @readings = Hash[@reading_array.map{|r| [r.work_id,r.work_id]}]
+   end
+   @works_recomended=0
+%>
+<% @recs.sort_by { |a| a["computed_score"] }.reverse.first(8).each do |rec| %>
   <% work = Work.find_by_id(rec["work"]) %>
-  <% unless work.nil? %>
+  <% break if @works_recomended ==6 %>
+  <% unless work.nil? || !@readings[rec["work"]].nil? %>
     <li class="work blurb group" role="article">
     <%= render 'works/work_recomended_blurb', :work => work, :score => rec["computed_score"] %>
+    <% @works_recomended = @works_recomended + 1 %>
     </li>
   <% end %>
 <% end %>
