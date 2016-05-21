@@ -10,7 +10,7 @@
    end
    @works_recomended=0
 %>
-<% @recs.sort_by { |a| a["computed_score"] }.reverse.first(8).each do |rec| %>
+<% @recs.sort_by { |a| a["computed_score"] }.reverse.each do |rec| %>
   <% work = Work.find_by_id(rec["work"]) %>
   <% break if @works_recomended ==6 %>
   <% unless work.nil? || !@readings[rec["work"]].nil? %>
