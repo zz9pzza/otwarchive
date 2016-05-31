@@ -1,3 +1,4 @@
+<!-- ./challenge_signups/_signup_form_general_information.html.erb -->
 <h3 class="heading"><%= ts("Sign Up as") %>
   <% if (form.object.new_record? || @challenge.allow_name_change?) && current_user.pseuds.size > 1 %>
     <%= form.select :pseud_id, options_from_collection_for_select(current_user.pseuds, :id, :name, current_user.default_pseud.id) %>

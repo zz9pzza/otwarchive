@@ -1,3 +1,4 @@
+<!-- ./favorite_tags/_form.html.erb -->
 <% # expects favorite_tag and current_user %>
 <%= form_for([current_user, favorite_tag],
   method: favorite_tag.new_record? ? 'post' : 'delete',

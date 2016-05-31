@@ -1,3 +1,4 @@
+<!-- ./inbox/_delete_form.html.erb -->
 <% # expects inbox_comment and current_user %>
 <%= form_tag user_inbox_path(current_user), method: 'put', class: 'ajax-remove' do %>
   <%= hidden_field_tag 'delete', true %>

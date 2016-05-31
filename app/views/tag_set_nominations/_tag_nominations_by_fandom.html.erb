@@ -1,3 +1,4 @@
+<!-- ./tag_set_nominations/_tag_nominations_by_fandom.html.erb -->
 <% @tag_set_nomination.fandom_nominations.each_with_index do |nom, index| %>
   <%= f.fields_for :fandom_nominations, nom do |nom_form| %>
     <fieldset class="tagset">

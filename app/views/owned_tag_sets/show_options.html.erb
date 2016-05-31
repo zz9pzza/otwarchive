@@ -1,3 +1,4 @@
+<!-- ./owned_tag_sets/show_options.html.erb -->
 <% cache("tagsets_#{@tag_set_ids.join('-')}_#{@tag_sets.collect(&:updated_at).sort.last}") do %>
   <h2>
     <%= ts("#{@tag_type.classify} Options") %>

@@ -1,3 +1,4 @@
+<!-- ./challenge/gift_exchange/_challenge_navigation_maintainer.html.erb -->
 <% if @collection.challenge.user_allowed_to_see_signups?(current_user) %>
   <li role="navigation"><%= link_to ts("Sign-ups"), collection_signups_path(@collection) %></li>
 <% end %>

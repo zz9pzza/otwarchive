@@ -1,3 +1,4 @@
+<!-- ./subscriptions/_form.html.erb -->
 <% # expects subscription and current_user %>
 <%= form_for([current_user, subscription],
   method: subscription.new_record? ? 'post' : 'delete',

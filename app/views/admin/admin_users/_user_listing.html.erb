@@ -1,3 +1,4 @@
+<!-- ./admin/admin_users/_user_listing.html.erb -->
 <th scope="row"><%=h user.login %></th>
 <td><%=h user.email, :title => t('.email', :default => "Email") %>%></td>
 <td><%= t('.translation_admin', :default => "Translation Admin") if user.is_translation_admin? %></td>

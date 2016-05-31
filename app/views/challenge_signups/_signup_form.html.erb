@@ -1,3 +1,4 @@
+<!-- ./challenge_signups/_signup_form.html.erb -->
 <% types = @challenge.class::PROMPT_TYPES.select {|t| @challenge.allowed(t) > @challenge.required(t)} %>
 <% unless types.empty? %>
   <noscript>

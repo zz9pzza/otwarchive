@@ -1,3 +1,4 @@
+<!-- ./readings/_reading_blurb.html.erb -->
 <% # expects "work" and "reading" %>
 <li <% unless reading.work.nil? %>id="work_<%= work.id %>"<% end %> class="<% if reading.work.nil? %>deleted <% end %><% if is_author_of?(work) %>own <% end %>reading work blurb group" role="article">
 

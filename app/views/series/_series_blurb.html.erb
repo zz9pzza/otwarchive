@@ -1,3 +1,4 @@
+<!-- ./series/_series_blurb.html.erb -->
 <li class="series blurb group <% if is_author_of?(series) %>own<% end %>" id="series_<%= series.id %>_blurb" role="article">
   <%= render 'series/series_module', :series => series %>
   <% if is_author_of?(series) %>

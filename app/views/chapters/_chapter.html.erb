@@ -1,3 +1,4 @@
+<!-- ./chapters/_chapter.html.erb -->
 <!-- This partial requires local variable 'chapter' -->
 <% chapter_id = "chapter-#{chapter.position.to_s}" %>
 <div class="chapter<%= ' draft' if (!chapter.posted? || @preview_mode) %>" id="<%= chapter_id %>">

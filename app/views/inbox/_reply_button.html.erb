@@ -1,3 +1,4 @@
+<!-- ./inbox/_reply_button.html.erb -->
 <% # expects feedback_comment %>
 <% unless feedback_comment.ultimate_parent.blank? %>
   <%= link_to ts('Reply'), reply_user_inbox_path(current_user, comment_id: feedback_comment, filters: params[:filters]), remote: true %>

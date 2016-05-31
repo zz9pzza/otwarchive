@@ -1,3 +1,4 @@
+<!-- ./collections/_form.html.erb -->
 <%= error_messages_for :collection %>
 <%= form_for(@collection, html: { multipart: true, class: "verbose post collection" }) do |collection_form| %>
   <p class="notice required">* <%= ts('Required information') %></p>

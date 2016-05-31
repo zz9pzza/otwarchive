@@ -1,3 +1,4 @@
+<!-- ./challenge_assignments/show.html.erb -->
 <% # accessed through My Assignment on challenge dashboard %>
 <!--Descriptive page name, messages and instructions-->
 <h2 class="heading"><%= ts("Assignment for") %> <%= @challenge_assignment.offer_byline %> <% if @challenge_assignment.collection.challenge.user_allowed_to_see_assignments?(current_user) %><%= challenge_assignment_email(@challenge_assignment) %><% end %></h2>

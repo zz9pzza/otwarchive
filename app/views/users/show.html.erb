@@ -1,3 +1,4 @@
+<!-- ./users/show.html.erb -->
 <% if @user == current_user && @user.preference.try(:first_login) %>
   <!-- pseudoflash because putting it in a real one was making for some ugly code -->
   <div class="flash notice" id="first-login-help-banner">

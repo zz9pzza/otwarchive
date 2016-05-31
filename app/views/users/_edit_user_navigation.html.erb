@@ -1,3 +1,4 @@
+<!-- ./users/_edit_user_navigation.html.erb -->
 <ul class="navigation actions" role="navigation">
   <li><%= span_if_current ts("Edit My Profile"), edit_user_path(@user) %></li>
   <li><%= span_if_current ts("Edit Default Pseud and Icon"), [:edit, @user, @user.default_pseud] %></li>

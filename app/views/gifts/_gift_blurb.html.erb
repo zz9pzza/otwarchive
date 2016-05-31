@@ -1,3 +1,4 @@
+<!-- ./gifts/_gift_blurb.html.erb -->
 <% # expects "work" and "gift" %>
 <li class="<% if is_author_of?(work) %>own <% end %>work blurb group" id="work_<%= work.id %>" role="article">
   <%= render "works/work_module", work: work %>

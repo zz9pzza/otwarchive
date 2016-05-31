@@ -1,3 +1,4 @@
+<!-- ./collection_mailer/item_added_notification.html.erb -->
 <% content_for :message do %> 
 
   <% pseuds = @creation.is_a?(Work) ? @creation.pseuds.map{|p| style_pseud_link(p)}.to_sentence.html_safe : @creation.pseud.name %>

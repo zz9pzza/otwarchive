@@ -1,3 +1,4 @@
+<!-- ./challenge_signups/summary.html.erb -->
 <% if File.size?("#{ChallengeSignup.summary_file(@collection)}") %>
   <%=raw File.read("#{ChallengeSignup.summary_file(@collection)}") %>
 <% elsif @generated_live %>

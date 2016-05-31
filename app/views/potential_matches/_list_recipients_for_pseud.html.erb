@@ -1,3 +1,4 @@
+<!-- ./potential_matches/_list_recipients_for_pseud.html.erb -->
 <% #expects local "request_signup"; lists the people that this person is writing for %>
 <%= request_signup.offer_assignments.map { |offer_assignment| 
   offer_assignment.request_signup ?

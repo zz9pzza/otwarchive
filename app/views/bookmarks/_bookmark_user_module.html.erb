@@ -1,3 +1,4 @@
+<!-- ./bookmarks/_bookmark_user_module.html.erb -->
 <% # expects "bookmark" %>
 <div class="<% if is_author_of?(bookmark) %>own <% end %>user module group">
   <% blurb_cache_key = (is_author_of?(bookmark) ? "bookmark-owner-blurb-#{bookmark.cache_key}-v2" : "bookmark-blurb-#{bookmark.cache_key}-v2") %>
