@@ -1,6 +1,6 @@
-/* replace the top "Comments (#)" link with "Hide Comments (#)" */
+/* replace the bottom recomendation " (#)" link with "Hide Recomendations" */
 $j("#show_recomendations_link").html("<%= escape_javascript(show_hide_recomendations_link(@work, :link_type => "hide")) %>");
 /* load up the comments in their placeholder div */
-$j("#recomendations_placeholder").html("<%= render "works/recomended_works", :work => @work, :rec => @recs %>");
+$j("#recomendations_placeholder").html("<%= render "works/recomended_works", :work => @work.id %>");
 /* roll down the comments */
 $j("#recomendations_placeholder").slideDown();

@@ -5,8 +5,8 @@ module RecomendationsHelper
     options[:show_count] ||= false
 
     link_action = options[:link_type] == "hide" || params[:show_recomendations] ?
-                    :hide_recomendations :
-                    :show_recomendations
+                    :hide_works_recomendations :
+                    :show_works_recomendations
     
     link_text = ( options[:link_type] == "hide" || params[:show_recomendations] ?
                         ts("Hide Recomendations") :
@@ -16,9 +16,9 @@ module RecomendationsHelper
         link_text,
         url_for(:controller => :recomendations,
                 :action => link_action,
-                :work  => work,
+                :work  => work.id,
                 :view_full_work => params[:view_full_work]),
-        :remote => true)
+                :remote => true)
   end
 
 end

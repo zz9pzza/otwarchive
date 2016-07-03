@@ -77,4 +77,12 @@
 <% #### END CACHE stats #### %>
 
   </dl>
+  <br>
+  <!--summary-->
+  <% unless work.summary.blank? %>
+    <h6 class="landmark heading"><%= ts("Summary") %></h6>
+    <blockquote class="userstuff summary">
+      <%=raw strip_images(sanitize_field(work, :summary)) %>
+    </blockquote>
+  <% end %>
   </div>

@@ -4,6 +4,7 @@
 <ul>
 <ol>
 <% 
+   @work = Work.find(params[:work]) unless params[:work].nil?
    @recs = @work.find_recomended_works(@user.nil? ? nil :  @user.id)
    @readings = {}
    unless @current_user.nil? 
