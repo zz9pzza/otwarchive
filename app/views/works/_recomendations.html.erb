@@ -1,0 +1,7 @@
+  <!-- If we have javascript, here is where the recomendations will be spiffily inserted -->
+  <!-- If not, and show_recomendations is true, here is where the recomendations will be rendered -->
+  <div id="recomendations_placeholder" <% unless params[:show_recomendations]%>style="display:none;"<% end %>>
+    <% if params[:show_recomendations] %>
+      <%= render :partial => 'works/recomended_works' %>
+    <% end %>
+  </div>
