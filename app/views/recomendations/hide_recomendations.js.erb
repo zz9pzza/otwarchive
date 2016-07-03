@@ -1,0 +1,5 @@
+/* replace the "Hide Comments (#) link with "Comments (#)" */
+$j("#show_recomendations_link").html("<%= escape_javascript(show_hide_recomendations_link(@work )) %>");
+/* roll up, then remove the comments */
+$j("#recomendations_placeholder").slideUp();
+$j("#recomendations_placeholder").html("");

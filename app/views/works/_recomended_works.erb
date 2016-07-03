@@ -1,9 +1,13 @@
 <!-- Begin recomendations -->
+<% unless params[:work].blank? %>
 <div id="recomendations" class="hidden">
 <h3 class="landmark heading">If you liked this work...</h3>
 <ul>
 <ol>
-<% @readings = {}
+<% 
+   @work = Work.find(params[:work])
+   @recs = @work.find_recomended_works(@user.nil? ? nil :  @user.id)
+   @readings = {}
    unless @current_user.nil? 
      @reading_array=@current_user.readings.select("work_id")
      @readings = Hash[@reading_array.map{|r| [r.work_id,r.work_id]}]
@@ -23,4 +27,5 @@
 </ol>
 </ul>
 </div>
+<% end %>
 <!-- End recomendations -->
