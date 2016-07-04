@@ -4,11 +4,11 @@ module RecomendationsHelper
     options[:link_type] ||= "show"
     options[:show_count] ||= false
 
-    link_action = options[:link_type] == "hide" || params[:show_recomendations] ?
+    link_action = options[:link_type] == "hide" ?
                     :hide_works_recomendations :
                     :show_works_recomendations
     
-    link_text = ( options[:link_type] == "hide" || params[:show_recomendations] ?
+    link_text = ( options[:link_type] == "hide" ?
                         ts("Hide Recomendations") :
                         ts("Recomendations"))
     
