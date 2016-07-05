@@ -1,9 +1,8 @@
 class RecomendationsController < ApplicationController
   layout false
+  layout 'application', :except => :index
 
-  #before_filter :users_only
-  #before_filter :load_user
-  #before_filter :check_ownership
+  before_filter :users_only, :load_user, :check_ownership, :except => [:show_works_recomendations]
 
   def load_user
     @user = User.find_by_login(params[:user_id])
