@@ -10,6 +10,16 @@ class RecomendationsController < ApplicationController
   end
 
   def index
+    @liked = Hash.new(0) 
+    @recs = Hash.new(0)
+    bookmarks = @user.bookmark_ids
+    kudos = Kudo.where(pseud_id: Pseud.where(user_id: @user.id).value_of(:id)).value_of(:commentable_id) 
+    (kudos << bookmarks).each do |work| 
+      @liked[work] +=1
+    end
+    @liked.keys.each do |work|
+      work_rec = Work.find_recomended_works(work,@user.id)
+    end
   end
 
 end

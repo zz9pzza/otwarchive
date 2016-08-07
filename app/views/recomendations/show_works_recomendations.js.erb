@@ -1,4 +1,3 @@
 $j('#show_recomendations_link').hide();
 $j('#hide_recomendations_link').show();
 $j("#recomendations_placeholder").html("<%= escape_javascript(render "recomendations/show_recomendations", :work => params[:work])  %>");
-$j("#recomendations_placeholder").slideDown();
