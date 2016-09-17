@@ -78,6 +78,7 @@ Otwarchive::Application.routes.draw do
     end
     resources :works
     resources :bookmarks
+    resources :recomendations
     resources :comments
 	end
 

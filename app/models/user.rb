@@ -505,6 +505,19 @@ class User < ActiveRecord::Base
     invite_request.destroy if invite_request
   end
 
+  def self.recomended_user_key(id)
+    "/recomendation/user_#{self.id}/tag_#{id}"
+  end
+
+  def find_recomended_works(tag)
+    recs=self.find_recommend_works_full
+    key = self.recomended_user_key(tag.id)
+    REDIS_RECOMMEND.del(key)
+    recs.each do |rec|
+      REDIS_RECOMMEND.sadd(key,rec.to_json)
+    end
+  end
+
   private
 
   # Create and/or return a user account for holding orphaned works

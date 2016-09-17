@@ -45,9 +45,9 @@
       <li><%= span_if_current ts("History"), user_readings_path(@user) %></li>
     <% end %>
     <li><%= span_if_current ts("Subscriptions"), user_subscriptions_path(@user) %></li>
-    <li><%= span_if_current ts("Auto-Recs"), user_recomendations_path(@user) %></li>
   </ul>
 <% end %>	
+
 	
 <h4 class="landmark heading"><%= ts("Switch")%></h4>
 <ul class="navigation actions">
@@ -59,6 +59,5 @@
   <% end %>
   <li><%= print_gifts_link(@user) %></li> 
 </ul>
-
 </div>
 
