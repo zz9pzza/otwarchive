@@ -1,15 +1,42 @@
 class CreationObserver < ActiveRecord::Observer
   observe Chapter, Work, Series
 
+  def after_commit(comment)
+    # for rails4 change to if transaction_any_action?([:create])
+    notify_co_authors(creation)
+    return unless !creation.is_a?(Series) && creation.posted?
+    # Send notifications when a creation is posted from a draft state
+    if transaction_include_action?(:create) && creation.valid? && creation.posted? && !creation.is_a?(Series) 
+      if creation.posted_changed?
+        do_notify(creation)
+      else
+        notify_subscribers_on_reveal(creation)
+      end
+      return
+    end
+    if transaction_include_action?(:update) && creation.valid? && creation.posted? && !creation.is_a?(Series)
+     if creation.posted_changed?
+       do_notify(creation)
+      else
+        notify_subscribers_on_reveal(creation)
+      end
+    end
+    if creation.is_a?(Work)
+      notify_recipients(creation)
+    end
+  end
+
+
+
   # Send notifications when a creation is posted without preview
-  def after_create(creation)
+  def deleteme_after_create(creation)
     notify_co_authors(creation)
     return unless !creation.is_a?(Series) && creation.posted?
     do_notify(creation)
   end
 
   # Send notifications when a creation is posted from a draft state
-  def before_update(creation)
+  def deleteme_before_update(creation)
     notify_co_authors(creation)
     return unless !creation.is_a?(Series) && creation.valid? && creation.posted?
 
@@ -21,7 +48,7 @@ class CreationObserver < ActiveRecord::Observer
   end
 
   # Notify recipients after save only to prevent repeat notifications from previewing
-  def after_save(creation)
+  def deleteme_after_save(creation)
     if creation.is_a?(Work)
       notify_recipients(creation)
     end
