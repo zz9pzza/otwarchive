@@ -7,11 +7,12 @@ Feature: Admin Actions to Manage Invitations
  Scenario: An admin can remove someone from the queue
     Given an invitation request for "fred@bedrock.com"
       And an invitation request for "barney@bedrock.com"
+     When I am logged in as an admin
+      And I follow "Manage Queue"
+     Then I should see "fred@bedrock.com"
       And the following users exist
       | login | password | email            |
       | fred | password | fred@bedrock.com |
-     When I am logged in as an admin
-      And I follow "Manage Queue"
       And I press "Reorder Queue"
      Then I should see "Something went wrong. Please try that again."
       And I follow "Delete"

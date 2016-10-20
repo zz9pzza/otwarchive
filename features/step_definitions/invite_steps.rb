@@ -75,6 +75,12 @@ Given /^the invitation queue is disabled$/ do
   }
 end
 
+Given /^an invitation request for "([^"]*)"$/ do |email|
+  visit invite_requests_path
+  fill_in("invite_request[email]", with: email)
+  click_button("Add me to the list")
+end
+
 ### WHEN
 
 When /^I use an invitation to sign up$/ do
