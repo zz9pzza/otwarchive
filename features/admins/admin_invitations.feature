@@ -4,6 +4,22 @@ Feature: Admin Actions to Manage Invitations
   As an an admin
   I want to be able to require invitations for new users
 
+ Scenario: An admin can remove someone from the queue
+    Given an invitation request for "fred@bedrock.com"
+      And an invitation request for "barney@bedrock.com"
+      And the following users exist
+      | login | password | email            |
+      | fred | password | fred@bedrock.com |
+     When I am logged in as an admin
+      And I follow "Manage Queue"
+      And I press "Reorder Queue"
+     Then I should see "Something went wrong. Please try that again."
+      And I follow "Delete"
+     Then I should see "Request was removed from the queue."
+     Then I should not see "fred@bedrock.com"
+      And I press "Reorder Queue"
+     Then I should see "The queue has been successfully updated."
+
   Scenario: Admin can set invite from queue number to a number greater than or equal to 1
     Given I am logged in as an admin
       And I go to the admin-settings page
