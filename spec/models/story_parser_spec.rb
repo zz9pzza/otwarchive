@@ -135,7 +135,7 @@ describe StoryParser do
     end
   end
 
-  describe "#download_and_parse_chapters_into_story", :rspec_run_two => true do
+  describe "#download_and_parse_chapters_into_story" do
     it "should set the work revision date to the date of the last chapter" do
       # Let the test get at external sites, but stub out anything containing "url1" and "url2"
       WebMock.allow_net_connect!
@@ -144,7 +144,7 @@ describe StoryParser do
       WebMock.stub_request(:any, /url2/).
         to_return(status: 200, body: "Date: 2001-01-22 12:56\nstubbed response", headers: {})
 
-      user = create(:user)
+      user = FactoryGirl.create(:user)
       urls = %w(http://url1 http://url2)
       work = @sp.download_and_parse_chapters_into_story(urls, { pseuds: [user.default_pseud], do_not_set_current_author: false })
       work.save
@@ -215,14 +215,14 @@ describe StoryParser do
   describe "Import" do
     before do
       mock_external
-      @user = create(:user)
+      @user = FactoryGirl.create(:user)
     end
 
     after do
       WebMock.reset!
     end
 
-    it "should not throw an exception with non-ASCII characters in metadata fields", :rspec_run_two => true do
+    it "should not throw an exception with non-ASCII characters in metadata fields" do
       urls = %w(http://ascii-8bit http://utf-8 http://win-1252)
       urls.each do |url|
         expect {
