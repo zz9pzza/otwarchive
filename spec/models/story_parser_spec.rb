@@ -223,8 +223,6 @@ describe StoryParser do
     end
 
     it "should not throw an exception with non-ASCII characters in metadata fields" do
-      puts @user.default_pseud.inspect
-      puts User.current_user.default_pseud.inspect
       urls = %w(http://ascii-8bit http://utf-8 http://win-1252)
       urls.each do |url|
         expect {
