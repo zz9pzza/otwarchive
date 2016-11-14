@@ -282,7 +282,7 @@ class StoryParser
 
       # set authors for the works
       pseuds = []
-      pseuds << User.current_user.default_pseud unless options[:do_not_set_current_author] || User.current_user.nil?
+      pseuds << @current_user.default_pseud unless options[:do_not_set_current_author] || @current_user.nil?
       pseuds << options[:archivist].default_pseud if options[:archivist]
       pseuds += options[:pseuds] if options[:pseuds]
       pseuds = pseuds.uniq
@@ -307,7 +307,7 @@ class StoryParser
               # we're not allowed to import works from this address
               raise Error, "Author #{external_author_name.name} at #{external_author_name.external_author.email} does not allow importing their work to this archive."
             end
-            work.external_creatorships.build(external_author_name: external_author_name, archivist: (options[:archivist] || User.current_user))
+            work.external_creatorships.build(external_author_name: external_author_name, archivist: (options[:archivist] || @current_user))
           end
         end
       end
