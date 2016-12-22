@@ -2,22 +2,7 @@ language: ruby
 cache: bundler
 sudo: required
 env:
-  - TEST_GROUP="./script/check_syntax"
-  - TEST_GROUP="rspec spec"
-  - TEST_GROUP="cucumber -r features features/admins             -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/bookmarks          -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/collections        -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/comments_and_kudos -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/gift_exchanges     -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/importing          -f Ao3Cucumber::Formatter --color"
   - TEST_GROUP="cucumber -r features features/other_a            -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/other_b            -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/prompt_memes_a     -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/prompt_memes_b     -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/prompt_memes_c     -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/tags_and_wrangling -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/users              -f Ao3Cucumber::Formatter --color"
-  - TEST_GROUP="cucumber -r features features/works              -f Ao3Cucumber::Formatter --color"
 rvm:
   - "2.2.5"
 services:
@@ -44,3 +29,8 @@ notifications:
      - "irc.freenode.org#otw-dev"
    on_success: change
    on_failure: change
+addons:
+  browserstack:
+    username: "jamesbeal1"
+    access_key:
+      secure: "R/ibAEHJaCx9xe9mHPT3Kp5qX50Lca64BlOse4nYns8OvKjlH5gdoBvbFtQxz5/XN4sUqXU5s79v15HHlLbP2MGe/yN5vv/t/iBGA4mFT5T/ZiAJ1D6yBgcWff6RD49s04Nn2wVtvURvHv0NKjtn807escvzpF+y/jT1ysuWtFo="

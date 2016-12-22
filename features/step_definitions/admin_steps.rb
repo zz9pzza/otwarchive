@@ -38,7 +38,7 @@ Given /the following admins? exists?/ do |table|
   end
 end
 
-Given /^I am logged in as an admin$/ do
+Given /^I am logged in as an admin/ do
   step("I am logged out")
   admin = Admin.find_by_login("testadmin")
   if admin.blank?

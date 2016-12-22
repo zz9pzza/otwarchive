@@ -1,0 +1,10 @@
+common_caps:
+  "browserstack.debug": true
+
+browser_caps:
+  -
+    "os": "OS X"
+    "os_version": "Sierra"
+    "browser": "Firefox"
+    "browser_version": "51.0 beta"
+    "resolution": "1280x1024"
