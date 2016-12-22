@@ -21,7 +21,8 @@ Given /^(?:|I )am on (.+)$/ do |page_name|
 end
 
 When /^I take a screenshot$/ do
-  screenshot_and_save_page
+  screenshot_and_save_page unless @browserstack
+  driver.save_screenshot if @browserstack
 end
 
 # We set the default domain to example.org.

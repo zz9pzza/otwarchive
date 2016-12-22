@@ -39,7 +39,7 @@ CONFIG = YAML.load(File.read(File.join(File.dirname(__FILE__), "../../config/#{C
 CONFIG['user'] = ENV['BROWSERSTACK_USERNAME'] || CONFIG['user']
 CONFIG['key'] = ENV['BROWSERSTACK_ACCESS_KEY'] || CONFIG['key']
 
-
+Capybara.server_port = 38946
 Capybara.register_driver :browserstack do |app|
   @caps = CONFIG['common_caps'].merge(CONFIG['browser_caps'][TASK_ID])
   @caps['browserstack.local'] = 'true' unless ENV['TEST_LOCAL'].nil?
