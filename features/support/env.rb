@@ -39,7 +39,7 @@ CONFIG = YAML.load(File.read(File.join(File.dirname(__FILE__), "../../config/#{C
 CONFIG['user'] = ENV['BROWSERSTACK_USERNAME'] || CONFIG['user']
 CONFIG['key'] = ENV['BROWSERSTACK_ACCESS_KEY'] || CONFIG['key']
 
-Capybara.server_port = 38946
+Capybara.server_port = 8000
 Capybara.register_driver :browserstack do |app|
   @caps = CONFIG['common_caps'].merge(CONFIG['browser_caps'][TASK_ID])
   @caps['browserstack.local'] = 'true' unless ENV['TEST_LOCAL'].nil?
@@ -118,7 +118,7 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :transaction
-Capybara.asset_host = "http://localhost:3000"
+#Capybara.asset_host = "http://localhost:3000"
 
 # Code to stop browserstack local after end of test
 at_exit do
