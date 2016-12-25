@@ -1,4 +1,5 @@
 class Gift < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   NAME_LENGTH_MAX = 100
 
   belongs_to :work, touch: true

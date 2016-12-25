@@ -1,4 +1,5 @@
 class TagSetAssociation < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   belongs_to :owned_tag_set
   belongs_to :tag
   belongs_to :parent_tag, :class_name => "Tag"
