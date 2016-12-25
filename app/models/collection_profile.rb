@@ -1,5 +1,4 @@
 class CollectionProfile < ActiveRecord::Base
-  include ActiveModel::ForbiddenAttributesProtection
   belongs_to :collection
 
   attr_protected :intro_sanitizer_version
