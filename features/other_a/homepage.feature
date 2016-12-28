@@ -1,8 +1,5 @@
 Feature: Various things on the homepage
  
-  Before do
-  end
-
   @browserstack
 #  @javascript
   Scenario: Logged out
