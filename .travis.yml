@@ -32,5 +32,4 @@ notifications:
 addons:
   browserstack:
     username: "jamesbeal1"
-    access_key:
-      secure: "fred"
+    access_key: "fred"
