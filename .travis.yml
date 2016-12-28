@@ -2,7 +2,7 @@ language: ruby
 cache: bundler
 sudo: required
 env:
-  - TEST_GROUP="cucumber -r features features/other_a            -f Ao3Cucumber::Formatter --color"
+  - TEST_GROUP="cucumber -r features features/other_a/homepage.feature   -f Ao3Cucumber::Formatter --color"
 rvm:
   - "2.2.5"
 services:
