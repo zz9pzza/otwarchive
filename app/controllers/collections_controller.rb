@@ -24,6 +24,7 @@ class CollectionsController < ApplicationController
   end
 
   def index
+    page = params[:page] || "1"
     if params[:work_id] && (@work = Work.find_by_id(params[:work_id]))
       @collections = @work.approved_collections.by_title.includes(:parent, :moderators, :children, :collection_preference, owners: [:user]).paginate(page: params[:page])
     elsif params[:collection_id] && (@collection = Collection.find_by_name(params[:collection_id]))
@@ -44,7 +45,7 @@ class CollectionsController < ApplicationController
       params[:sort_column] = "collections.created_at" if !valid_sort_column(params[:sort_column], 'collection')
       params[:sort_direction] = 'DESC' if !valid_sort_direction(params[:sort_direction])
       sort = params[:sort_column] + " " + params[:sort_direction]
-      @collections = Collection.includes(:parent, :moderators, :children, :collection_preference, owners: [:user]).sorted_and_filtered(sort, params[:collection_filters], params[:page])
+      @collections = Collection.includes(:parent, :moderators, :children, :collection_preference, owners: [:user]).sorted_and_filtered(sort, params[:collection_filters]).paginate({page: page})
     end
   end
 

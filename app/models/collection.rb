@@ -420,9 +420,7 @@ class Collection < ActiveRecord::Base
     approved_collection_items.each {|collection_item| collection_item.notify_of_reveal}
   end
 
-  def self.sorted_and_filtered(sort, filters, page)
-    pagination_args = {page: page}
-
+  def self.sorted_and_filtered(sort, filters)
     # build up the query with scopes based on the options the user specifies
     query = Collection.top_level
 
@@ -445,17 +443,17 @@ class Collection < ActiveRecord::Base
         query = query.no_challenge
       end
     end
-    query = query.order(sort)
+    query = query.order(sort).first(40)
 
     if !filters[:fandom].blank?
       fandom = Fandom.find_by_name(filters[:fandom])
       if fandom
-        (fandom.approved_collections & query).paginate(pagination_args)
+        (fandom.approved_collections & query)
       else
         []
       end
     else
-      query.paginate(pagination_args)
+      query
     end
   end
 
