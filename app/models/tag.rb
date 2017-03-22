@@ -84,7 +84,7 @@ class Tag < ActiveRecord::Base
     # but we want to know how long it takes to count the taggings to work out if it is a large tag
     # for the scheduled background counts.
     if (real_value > (ArchiveConfig.TAGGINGS_COUNT_MIN_CACHE_COUNT || 1000)) || (time_end - time_start > (ArchiveConfig.TAGGINGS_COUNT_MAX_ALLOWED_TIME || 6))
-      self.taggings_count = real_value
+      write_taggings_count_to_db(real_value)
       check_if_large_tag(taggings_count_expiry(real_value), time_end - time_start)
     else
       write_taggings_count_to_db(real_value)
