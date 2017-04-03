@@ -29,7 +29,7 @@ script:
   - RAILS_ENV=test bundle exec rake db:schema:load --trace
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - travis_retry bundle exec $TEST_GROUP
-  - grep "Unpermitted parameters: " log/test.log
+  - bash script/check_log_for_strong_params.sh
 before_script:
   - bash script/travis_configure.sh
   - bash script/travis_elasticsearch_upgrade.sh
