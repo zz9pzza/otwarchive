@@ -88,6 +88,6 @@ class InvitationsController < ApplicationController
   private
 
   def invitation_params
-    params.require(:invitation).permit(:id, :invitee_email, :number_of_invites)
+    params.require(:invitation).permit(:id, :invitee_email)
   end
 end
