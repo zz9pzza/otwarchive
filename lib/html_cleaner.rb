@@ -120,6 +120,7 @@ module HtmlCleaner
     text = text.encode("UTF-8", :invalid => :replace, :undef => :replace, :replace => "")
     
     text.gsub! "<3", "&lt;3"
+    text.gsub!(/<$/,"&lt")
 
     # convert carriage returns to newlines
     text.gsub!(/\r\n?/, "\n")

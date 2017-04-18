@@ -29,6 +29,18 @@ Scenario: When logged in I can comment on a work
     And I follow "Entire Work"
     And I follow "Comments (1)"
   Then I should see "commenter on Chapter 1" within "h4.heading.byline"
+
+Scenario: When logged in I can comment on a work with unpleasant characters
+
+  Given I have no works or comments
+  When I am logged in as "author"
+    And I post the work "The One Where Neal is Awesome"
+  When I am logged in as "commenter"
+    And I view the work "The One Where Neal is Awesome"
+    And I fill in "Comment" with "Hello<"
+    And I press "Comment"
+  Then I should see "Comment created!"
+    And I should see "Hello&lt" within ".odd"
   
 Scenario: I cannot comment with a pseud that I don't own
 
