@@ -81,11 +81,11 @@ describe Work do
 
     # TODO: testing specific invalid pseuds should take place in pseud_spec
     # However, we still want to make sure we can't save works without a valid pseud
-    it "does not save an invalid pseud with *", :pending do
-      @pseud = create(:pseud, name: "*pseud*")
+    it "does not save an invalid pseud with *" do
+      @pseud = create(:pseud)
+      @pseud.update_attribute('name', "*pseud*")
       @work = Work.new(attributes_for(:work, authors: ["*pseud*"]))
-      expect(@work.save).to be_falsey
-      expect(@work.errors[:base]).to include["These pseuds are invalid: *pseud*"]
+      expect {@work.save!}.to  raise_error(ActiveRecord::RecordInvalid,"These pseuds are invalid: *pseud*")
     end
 
     let(:invalid_work) { build(:no_authors) }
@@ -152,7 +152,7 @@ describe Work do
     end
 
     it "recipients should be unique" do
-      @work.recipients = @recipient2.pseuds.first.name + "," + @recipient2.pseuds.first.name 
+      @work.recipients = @recipient2.pseuds.first.name + "," + @recipient2.pseuds.first.name
       expect(@work.new_recipients).to eq(@recipient2.pseuds.first.name)
     end
 
