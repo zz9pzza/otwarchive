@@ -78,15 +78,13 @@ describe Work do
   end
 
   context "validate authors" do
-
     # TODO: testing specific invalid pseuds should take place in pseud_spec
     # However, we still want to make sure we can't save works without a valid pseud
     it "does not save an invalid pseud with *" do
       @pseud = create(:pseud)
+      @author = create(:user)
       @pseud.update_attribute('name', "*pseud*")
-      puts @pseud.inspect
-      @work = Work.new(attributes_for(:work, authors: ["*pseud*"]))
-      expect {@work.save!}.to  raise_error(ActiveRecord::RecordInvalid,"These pseuds are invalid: *pseud*")
+      expect {create(:work, authors: [@author], pseuds: [@pseud])}.to raise_error(ActiveRecord::RecordInvalid,"Validation failed: Pseuds is invalid")
     end
 
     let(:invalid_work) { build(:no_authors) }
