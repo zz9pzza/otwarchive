@@ -84,6 +84,7 @@ describe Work do
     it "does not save an invalid pseud with *" do
       @pseud = create(:pseud)
       @pseud.update_attribute('name', "*pseud*")
+      puts @pseud.inspect
       @work = Work.new(attributes_for(:work, authors: ["*pseud*"]))
       expect {@work.save!}.to  raise_error(ActiveRecord::RecordInvalid,"These pseuds are invalid: *pseud*")
     end
