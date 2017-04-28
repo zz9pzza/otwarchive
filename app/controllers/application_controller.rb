@@ -150,10 +150,9 @@ public
       Rails.logger.debug "Returning to #{back}"
       session[:return_to] = "redirected"
       redirect_to(back) and return
-    else
-      Rails.logger.debug "Returning to default (#{default})"
-      redirect_to(default) and return
     end
+    Rails.logger.debug "Returning to default (#{default})"
+    redirect_to(default)
   end
 
   def after_sign_in_path_for(resource)
