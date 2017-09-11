@@ -791,15 +791,11 @@ class Work < ApplicationRecord
     self.number_of_chapters > 1
   end
 
-  after_save :update_complete_status
+  before_save :update_complete_status
   # Note: this can mark a work complete but it can also mark a complete work
   # as incomplete if its status has changed
   def update_complete_status
-    # self.chapters.posted.count ( not self.number_of_posted_chapter , here be dragons )
     self.complete = self.chapters.posted.count == expected_number_of_chapters
-    if self.will_save_change_to_attribute?(:complete)
-      Work.where("id = #{self.id}").update_all("complete = #{self.complete}")
-    end
   end
 
   # Returns true if a work is not yet complete
