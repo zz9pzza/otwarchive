@@ -1,4 +1,8 @@
+require 'new_relic/agent/method_tracer'
+
 class TagSetNominationsController < ApplicationController
+  include ::NewRelic::Agent::MethodTracer
+
   cache_sweeper :tag_set_sweeper
 
   before_action :users_only
@@ -229,6 +233,7 @@ class TagSetNominationsController < ApplicationController
 
     # OK, now we're going ahead and making piles of db changes! eep! D:
     TagSet::TAG_TYPES_INITIALIZABLE.each do |tag_type|
+      self.class.trace_execution_scoped(["Custom/tag_set_nominations_controller/update_multiple/#{tag_type}"]) do
       # we're adding the approved tags and synonyms
       @tagnames_to_add = @approve[tag_type] + @synonym[tag_type]
       @tagnames_to_remove = @reject[tag_type]
@@ -266,6 +271,7 @@ class TagSetNominationsController < ApplicationController
       @notice ||= []
       @notice << ts("Successfully added to set: %{approved}", approved: @tagnames_to_add.join(', ')) unless @tagnames_to_add.empty?
       @notice << ts("Successfully rejected: %{rejected}", rejected: @tagnames_to_remove.join(', ')) unless @tagnames_to_remove.empty?
+      end # newrelic 
     end
 
     # If we got here we made it through, YAY
@@ -360,5 +366,9 @@ class TagSetNominationsController < ApplicationController
       ]
     )
   end
+
+add_method_tracer :base_nom_query, "Custom/tag_set_nominations_controller/base_nom_query"
+add_method_tracer :setup_for_review, "Custom/tag_set_nominations_controller/setup_for_review"
+add_method_tracer :collect_update_multiple_results, "Custom/tag_set_nominations_controller/collect_update_multiple_results"
 
 end
