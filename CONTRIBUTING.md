@@ -15,6 +15,8 @@ You will find our [list of approved issues on JIRA](https://otwarchive.atlassian
 We regret that we cannot accept pull requests for issues we haven't already logged, with the exception of documentation 
 or spelling corrections. 
 
+
+
 ### Resolve the issue
 
 Consult our [Developer Documentation](https://github.com/otwcode/otwarchive/wiki) on how to set up a local development 
