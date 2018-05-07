@@ -45,7 +45,7 @@ module PromptRestrictionsHelper
     result += content_tag(:dt, form.label(:freeform_num_required, ts("Additional tag(s):")))
     result += required_and_allowed(form, "freeform", hasprompts, allowany)
 
-    result += content_tag(:dt, form.label(:warning_num_required, ts("Archive Warning(s):")))
+    result += content_tag(:dt, form.label(:archivewarning_num_required, ts("Archive Warning(s):")))
     result += required_and_allowed(form, "warning", hasprompts, allowany)
   end
 
