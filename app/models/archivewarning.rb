@@ -1,4 +1,4 @@
-class ArchiveWarning < Tag
+class Archivewarning < Tag
 
   NAME = ArchiveConfig.WARNING_CATEGORY_NAME
 

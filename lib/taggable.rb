@@ -26,7 +26,7 @@ module Taggable
         source_type: 'Tag',
         before_remove: :remove_filter_tagging
       has_many :archivewarnings,
-        -> { where("tags.type = 'ArchiveWarning'") },
+        -> { where("tags.type = 'Archivewarning'") },
         through: :taggings,
         source: :tagger,
         source_type: 'Tag',
@@ -102,10 +102,10 @@ module Taggable
     parse_tags(Category, tag_string)
   end
   def archivewarning_string=(tag_string)
-    parse_tags(ArchiveWarning, tag_string)
+    parse_tags(Archivewarning, tag_string)
   end
   def archivewarning_strings=(array)
-    parse_tags(ArchiveWarning, array)
+    parse_tags(Archivewarning, array)
   end
   def fandom_string=(tag_string)
     parse_tags(Fandom, tag_string)
@@ -184,7 +184,7 @@ module Taggable
   end
 
   def warning_tags
-    taglist = self.tags.select {|t| t.is_a?(ArchiveWarning)}
+    taglist = self.tags.select {|t| t.is_a?(Archivewarning)}
     line_limited_tags(taglist)
   end
 
@@ -267,7 +267,7 @@ module Taggable
 
   # Simple name to make it easier for people to use in full-text search
   def tag
-    (tags + filters).uniq.map{ |t| t.name == "Warning" ? "ArchiveWarning" : t.name}
+    (tags + filters).uniq.map{ |t| t.name == "Warning" ? "Archivewarning" : t.name}
   end
 
   # Index all the filters for pulling works
@@ -283,7 +283,7 @@ module Taggable
     filters_for_facets.select{ |t| t.type.to_s == 'Rating' }.map{ |t| t.id }
   end
   def warning_ids
-    filters_for_facets.select{ |t| t.type.to_s == 'ArchiveWarning' }.map{ |t| t.id }
+    filters_for_facets.select{ |t| t.type.to_s == 'Archivewarning' }.map{ |t| t.id }
   end
   def category_ids
     filters_for_facets.select{ |t| t.type.to_s == 'Category' }.map{ |t| t.id }
