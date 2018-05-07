@@ -14,6 +14,6 @@ class ChangeWarningToArchiveWarning < ActiveRecord::Migration[5.1]
     rename_column :prompt_restrictions, :archivewarning_num_required, :warning_num_required
     rename_column :prompt_restrictions, :require_unique_archivewarning, :require_unique_warning
     rename_column :prompt_restrictions, :allow_any_archivewarning, :allow_any_warning
-    rename_column :prompts, :any_archivearning,  :any_warning
+    rename_column :prompts, :any_archivewarning,  :any_warning
   end
 end

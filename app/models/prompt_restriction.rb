@@ -27,7 +27,6 @@ class PromptRestriction < ApplicationRecord
     self.title_allowed = true if title_required
 
     TagSet::TAG_TYPES.each do |tag_type|
-      puts tag_type
       required = eval("#{tag_type}_num_required") || eval("self.#{tag_type}_num_required") || 0
       allowed = eval("#{tag_type}_num_allowed") || eval("self.#{tag_type}_num_allowed") || 0
       if required > allowed
