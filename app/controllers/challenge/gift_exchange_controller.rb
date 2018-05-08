@@ -87,7 +87,7 @@ class Challenge::GiftExchangeController < ChallengesController
         :category_num_required, :category_num_allowed, :allow_any_category,
         :require_unique_category, :freeform_num_required, :freeform_num_allowed,
         :allow_any_freeform, :require_unique_freeform, :archivewarning_num_required,
-        :archivewarning_num_allowed, :allow_any_warning, :require_unique_warning
+        :archivewarning_num_allowed, :allow_any_archivewarning, :require_unique_archivewarning
       ],
       offer_restriction_attributes: [
         :id, :optional_tags_allowed, :title_required, :title_allowed,
@@ -100,7 +100,7 @@ class Challenge::GiftExchangeController < ChallengesController
         :category_num_required, :category_num_allowed, :allow_any_category,
         :require_unique_category, :freeform_num_required, :freeform_num_allowed,
         :allow_any_freeform, :require_unique_freeform, :archivewarning_num_required,
-        :archivewarning_num_allowed, :allow_any_warning, :require_unique_warning,
+        :archivewarning_num_allowed, :allow_any_archivewarning, :require_unique_archivewarning,
         :tag_sets_to_add, :character_restrict_to_fandom,
         :character_restrict_to_tag_set, :relationship_restrict_to_fandom,
         :relationship_restrict_to_tag_set,
