@@ -12,7 +12,7 @@ class PotentialMatchSettings < ApplicationRecord
 
   # VALIDATION
   REQUIRED_TAG_ATTRIBUTES = %w(num_required_fandoms num_required_characters num_required_relationships num_required_freeforms num_required_categories
-     num_required_ratings num_required_warnings)
+     num_required_ratings num_required_archivewarnings)
 
   REQUIRED_TAG_ATTRIBUTES.each do |tag_limit_field|
       validates_inclusion_of tag_limit_field, in: REQUIRED_MATCH_OPTIONS.collect {|entry| entry[1]},

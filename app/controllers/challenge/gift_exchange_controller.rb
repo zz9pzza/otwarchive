@@ -109,10 +109,10 @@ class Challenge::GiftExchangeController < ChallengesController
       potential_match_settings_attributes: [
         :id, :num_required_prompts, :num_required_fandoms, :num_required_characters,
         :num_required_relationships, :num_required_freeforms, :num_required_categories,
-        :num_required_ratings, :num_required_warnings, :include_optional_fandoms,
+        :num_required_ratings, :num_required_archivewarnings, :include_optional_fandoms,
         :include_optional_characters, :include_optional_relationships,
         :include_optional_freeforms, :include_optional_categories, :include_optional_ratings,
-        :include_optional_warnings
+        :include_optional_archivewarnings
       ]
     )
   end
