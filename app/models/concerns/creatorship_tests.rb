@@ -24,6 +24,7 @@ module CreatorshipTests
         end
       end
       throw :abort
+    end
   end
 
   # Virtual attribute for pseuds
