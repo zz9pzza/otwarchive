@@ -50,7 +50,7 @@ describe Series do
       @series.works = [restricted_work, unrestricted_work]
       @series.reload
       expect{@series.pseuds = @creator.pseuds + @co_creator1.pseuds}.not_to raise_error
-      expect @series.work_pseuds).to match_array(User.current_user.pseuds)
+      expect(series.work_pseuds).to match_array(User.current_user.pseuds)
     end
 
     it 'checks a creator can not add a standard user' do
