@@ -36,7 +36,7 @@ class Chapter < ApplicationRecord
 
   attr_accessor :wip_length_placeholder
 
-  before_save :strip_title #, :clean_emdashes
+  before_save :validate_authors, :strip_title #, :clean_emdashes
   before_save :set_word_count
   before_save :validate_published_at
 

@@ -30,6 +30,7 @@ class Series < ApplicationRecord
 
   after_create :notify_after_creation
   before_update :notify_before_update
+  before_save :validate_authors
 
   # return title.html_safe to overcome escaping done by sanitiser
   def title

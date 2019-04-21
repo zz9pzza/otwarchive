@@ -349,7 +349,7 @@ describe Work do
       end
 
       let(:work_author) { @skin_author }
-      let(:work){ build(:custom_work_skin, authors: [work_author.pseuds.first], work_skin_id: @private_skin.id) }
+      let(:work) { build(:custom_work_skin, authors: [work_author.pseuds.first], work_skin_id: @private_skin.id) }
       it "can be used by the work skin author" do
         expect(work.save).to be_truthy
       end
@@ -507,7 +507,7 @@ describe Work do
     it 'checks that normal co creator can co create' do
       work = valid_work
       expect { work.save! }.to_not raise_error
-      authors = [ @creator.pseuds.first, @co_creator1.pseuds.first ]
+      authors = [@creator.pseuds.first, @co_creator1.pseuds.first]
       expect { work.authors = authors }.to_not raise_error
       expect { work.save! }.to_not raise_error
       expect(work.authors).to match_array(authors)

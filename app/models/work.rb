@@ -158,8 +158,7 @@ class Work < ApplicationRecord
   # consistency and that associated variables are updated.
   ########################################################################
 
-  # validate_authors to be found in concerns/creatorship_tests.rb
-  before_save :clean_and_validate_title, :validate_published_at, :ensure_revised_at
+  before_save :validate_authors, :clean_and_validate_title, :validate_published_at, :ensure_revised_at
 
   after_save :post_first_chapter
   before_save :set_word_count
