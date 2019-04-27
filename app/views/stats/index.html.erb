@@ -84,6 +84,7 @@
               </dt>
               <dd>
                 <dl class="stats">
+			test <%= Subscription.where("subscribable_id = '#{work.id}") %>
                   <% if (work_subscriber_count = Subscription.where(:subscribable_id => work.id, :subscribable_type => 'Work').count) > 0 %>
                     <dt class="subscriptions"><%= ts("Subscriptions:") %></dt>
                     <dd class="subscriptions"><%= work_subscriber_count %></dd>
