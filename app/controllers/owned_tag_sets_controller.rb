@@ -59,9 +59,16 @@ class OwnedTagSetsController < ApplicationController
     end
     @tag_sets = OwnedTagSet.in_prompt_restriction(@restriction)
     @tag_set_ids = @tag_sets.pluck(:tag_set_id)
-    @tag_type = params[:tag_type] && TagSet::TAG_TYPES.include?(params[:tag_type]) ? params[:tag_type] : "fandom"
-    # @tag_type is restricted by in_prompt_restriction and therefore safe to pass to constantize
-    @tags = @tag_type.classify.constantize.joins(:set_taggings).where("set_taggings.tag_set_id IN (?)", @tag_set_ids).by_name_without_articles
+    @tag_type = {"Rating": Rating,
+                 "Warning": Warning,
+                 "Category": Category,
+                 "Media": Media,
+                 "Fandom": Fandom,
+                 "Relationship": Relationship,
+                 "Character": Character,
+                 "Freeform": Freeform,
+                 "Banned": Banned}[params[:type].classify or "Fandom"]
+    @tags = @tag_type.joins(:set_taggings).where("set_taggings.tag_set_id IN (?)", @tag_set_ids).by_name_without_articles
   end
 
   def show
