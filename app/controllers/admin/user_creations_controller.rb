@@ -4,11 +4,13 @@ class Admin::UserCreationsController < ApplicationController
   before_action :can_be_marked_as_spam, only: [:set_spam]
 
   def get_creation
-    raise "Redshirt: Attempted to constantize invalid class initialize #{params[:creation_type]}" unless %w(Bookmark ExternalWork Series Work).include?(params[:creation_type])
-    @creation_class = params[:creation_type].constantize
+    @creation_class = { Bookmark: Bookmark,
+                        ExternalWork: ExternalWork,
+                        Series: Series,
+                        Work: Work }[params[:creation_type].classify.to_sym]
     @creation = @creation_class.find(params[:id])
   end
-  
+
   def can_be_marked_as_spam
     unless @creation_class && @creation_class == Work
       flash[:error] = ts("You can only mark works as spam currently.")
