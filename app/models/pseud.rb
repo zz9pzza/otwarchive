@@ -60,7 +60,7 @@ class Pseud < ApplicationRecord
     with: /\A[\p{Word} -]+\Z/u
   validates_format_of :name,
     message: ts('must contain at least one letter or number.'),
-    with: /\p{Alnum}/u
+    with: /\A.*\p{Alnum}.*\Z/u
   validates_length_of :description, allow_blank: true, maximum: DESCRIPTION_MAX,
     too_long: ts("must be less than %{max} characters long.", max: DESCRIPTION_MAX)
   validates_length_of :icon_alt_text, allow_blank: true, maximum: ArchiveConfig.ICON_ALT_MAX,

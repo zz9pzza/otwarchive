@@ -5,7 +5,7 @@ class AdminPostTag < ApplicationRecord
 
   validates_presence_of :name
   validates_uniqueness_of :name
-  validates_format_of :name, with: /[a-zA-Z0-9-]+$/, multiline: true
+  validates_format_of :name, with: /\A[a-zA-Z0-9-]+\Z/, multiline: true
 
   # Find or create by name, and set the language if it's a new record
   def self.fetch(options)
