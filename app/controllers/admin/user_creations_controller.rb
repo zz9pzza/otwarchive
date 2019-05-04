@@ -4,13 +4,13 @@ class Admin::UserCreationsController < ApplicationController
   before_action :can_be_marked_as_spam, only: [:set_spam]
 
   def get_creation
-    @creation_class = {"Bookmark": Bookmark,
-                       "ExternalWork": ExternalWork,
-                       "Series": Series,
-                       "Work": Work}[params[:creation_type].classify]
+    @creation_class = { "Bookmark": Bookmark,
+                        "ExternalWork": ExternalWork,
+                        "Series": Series,
+                        "Work": Work }[params[:creation_type].classify]
     @creation = @creation_class.find(params[:id])
   end
-  
+
   def can_be_marked_as_spam
     unless @creation_class && @creation_class == Work
       flash[:error] = ts("You can only mark works as spam currently.")
