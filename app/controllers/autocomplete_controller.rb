@@ -92,15 +92,15 @@ class AutocompleteController < ApplicationController
   ## NONCANONICAL TAGS
   def noncanonical_tag
     search_param = params[:term]
-    tag_class = { "Rating": Rating,
-                  "Warning": Warning,
-                  "Category": Category,
-                  "Media": Media,
-                  "Fandom": Fandom,
-                  "Relationship": Relationship,
-                  "Character": Character,
-                  "Freeform": Freeform,
-                  "Banned": Banned }[params[:type].classify]
+    tag_class = { Rating: Rating,
+                  Warning: Warning,
+                  Category: Category,
+                  Media: Media,
+                  Fandom: Fandom,
+                  Relationship: Relationship,
+                  Character: Character,
+                  Freeform: Freeform,
+                  Banned: Banned }[params[:type].classify.to_sym]
     render_output(tag_class.by_popularity.
       where(["canonical = 0 AND name LIKE ?",
              '%' + search_param + '%']).limit(10).map(&:name))

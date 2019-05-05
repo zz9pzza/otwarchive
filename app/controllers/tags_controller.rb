@@ -133,9 +133,9 @@ class TagsController < ApplicationController
 
   def show_hidden
     unless params[:creation_id].blank? || params[:creation_type].blank? || params[:tag_type].blank?
-      model = { "Series": Series,
-                "Work": Work,
-                "Chapter": Chapter }[params[:creation_type].classify]
+      model = { Series: Series,
+                Work: Work,
+                Chapter: Chapter }[params[:creation_type].classify.to_sym]
       @display_creation = model.find(params[:creation_id]) if model.is_a? Class
       # Tags aren't directly on series, so we need to handle them differently
       if params[:creation_type] == 'Series'

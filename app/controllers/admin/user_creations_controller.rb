@@ -4,10 +4,10 @@ class Admin::UserCreationsController < ApplicationController
   before_action :can_be_marked_as_spam, only: [:set_spam]
 
   def get_creation
-    @creation_class = { "Bookmark": Bookmark,
-                        "ExternalWork": ExternalWork,
-                        "Series": Series,
-                        "Work": Work }[params[:creation_type].classify]
+    @creation_class = { Bookmark: Bookmark,
+                        ExternalWork: ExternalWork,
+                        Series: Series,
+                        Work: Work }[params[:creation_type].classify.to_sym]
     @creation = @creation_class.find(params[:id])
   end
 
