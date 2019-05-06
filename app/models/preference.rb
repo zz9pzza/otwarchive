@@ -4,7 +4,7 @@ class Preference < ApplicationRecord
   belongs_to :user
   belongs_to :skin
 
-  validates_format_of :work_title_format, with: /\A[a-zA-Z0-9_\-,\. ]+\Z/,
+  validates_format_of :work_title_format, with: /\A[a-zA-Z0-9_\-,\. ]+\z/,
     message: ts("can only contain letters, numbers, spaces, and some limited punctuation (comma, period, dash, underscore)."),
     multiline: true
 

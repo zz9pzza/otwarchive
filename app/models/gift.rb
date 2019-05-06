@@ -12,7 +12,7 @@ class Gift < ApplicationRecord
 
   validates_format_of :recipient_name,
     message: ts("must contain at least one letter or number."),
-    with: /\A[a-zA-Z0-9]+\Z/,
+    with: /\A[a-zA-Z0-9]+.*\z/,
     allow_blank: true
 
   validate :has_name_or_pseud
