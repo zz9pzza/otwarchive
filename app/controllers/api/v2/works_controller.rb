@@ -33,7 +33,7 @@ class Api::V2::WorksController < Api::V2::BaseController
 
     if status == :ok
       # Process the works, updating the flags
-      works_responses = external_works.map { |external_work| import_work(archivist, external_work.merge(permit_works_params)) }
+      works_responses = external_works.map { |external_work| import_work(archivist, external_work.merge(external_works_params)) }
       success_works, error_works = works_responses.partition { |r| [:ok, :created, :found].include?(r[:status]) }
 
       # Send claim notification emails for successful works
@@ -223,7 +223,7 @@ class Api::V2::WorksController < Api::V2::BaseController
     }
   end
 
-  def permit_works_params
-    params.permit(:archivist,:format, :work, works: [ :id, :external_author_name, :external_author_email, chapter_urls:[]], work: {} )
+  def external_works_params
+    params.permit(:archivist, :format, :send_claim_emails, :work, works: [:detect_tags, :title, :summary, :fandoms, :warnings, :characters, :rating, :relationships, :categories, :additional_tags, :language_code, :notes,:id, :external_author_name, :external_author_email, chapter_urls: []], work: {})
   end
 end
