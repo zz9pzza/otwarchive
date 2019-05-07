@@ -33,7 +33,7 @@ class Api::V2::WorksController < Api::V2::BaseController
 
     if status == :ok
       # Process the works, updating the flags
-      works_responses = external_works.map { |external_work| import_work(archivist, external_work.merge(params.permit!)) }
+      works_responses = external_works.map { |external_work| import_work(archivist, external_work.merge(permit_works_params)) }
       success_works, error_works = works_responses.partition { |r| [:ok, :created, :found].include?(r[:status]) }
 
       # Send claim notification emails for successful works
@@ -41,7 +41,7 @@ class Api::V2::WorksController < Api::V2::BaseController
         notified_authors = notify_and_return_authors(success_works, archivist)
         messages << "Claim emails sent to #{notified_authors.to_sentence}."
       end
-
+      
       # set final status code and message depending on the flags
       status = :bad_request if error_works.present?
       messages = response_message(messages, success_works.present?, error_works.present?)
@@ -221,5 +221,13 @@ class Api::V2::WorksController < Api::V2::BaseController
       external_coauthor_name: work_params[:external_coauthor_name],
       external_coauthor_email: work_params[:external_coauthor_email]
     }
+  end
+
+  def permit_works_params
+    begin
+      params.permit(:archivist,:format, :work, works: [ :id, :external_author_name, :external_author_email, chapter_urls:[]], work: {} )
+    rescue Exception => ex
+      puts "An error of type #{ex.class} happened, message is #{ex.message}"
+    end
   end
 end
