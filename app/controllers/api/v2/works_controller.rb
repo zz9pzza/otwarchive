@@ -41,7 +41,7 @@ class Api::V2::WorksController < Api::V2::BaseController
         notified_authors = notify_and_return_authors(success_works, archivist)
         messages << "Claim emails sent to #{notified_authors.to_sentence}."
       end
-      
+
       # set final status code and message depending on the flags
       status = :bad_request if error_works.present?
       messages = response_message(messages, success_works.present?, error_works.present?)
@@ -224,10 +224,6 @@ class Api::V2::WorksController < Api::V2::BaseController
   end
 
   def permit_works_params
-    begin
-      params.permit(:archivist,:format, :work, works: [ :id, :external_author_name, :external_author_email, chapter_urls:[]], work: {} )
-    rescue Exception => ex
-      puts "An error of type #{ex.class} happened, message is #{ex.message}"
-    end
+    params.permit(:archivist,:format, :work, works: [ :id, :external_author_name, :external_author_email, chapter_urls:[]], work: {} )
   end
 end
