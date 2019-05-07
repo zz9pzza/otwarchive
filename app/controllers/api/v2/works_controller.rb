@@ -223,7 +223,7 @@ class Api::V2::WorksController < Api::V2::BaseController
     }
   end
 
-   def external_works_params
-    params.permit(:read,:replied_to,:date)
+  def external_works_params
+    params.permit(:archivist, :format, :send_claim_emails, :work, works: [:detect_tags, :title, :summary, :fandoms, :warnings, :characters, :rating, :relationships, :categories, :additional_tags, :language_code, :notes,:id, :external_author_name, :external_author_email, chapter_urls: []], work: {})
   end
 end
