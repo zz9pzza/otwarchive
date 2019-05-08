@@ -49,6 +49,6 @@ class InboxController < ApplicationController
 
   # Allow flexible params through, since we're not posting any data
   def filter_params
-    params.permit!
+    params.permit(:user_id, :utf8, :commit, filters: [:read, :replied_to, :date])
   end
 end

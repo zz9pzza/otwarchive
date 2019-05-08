@@ -581,6 +581,6 @@ class CommentsController < ApplicationController
   end
 
   def filter_params
-    params.permit!
+    params.permit(:comment_id, :approved_from, :id, comment: [:comment_content, :pseud_id], filters: [:date])
   end
 end
