@@ -68,7 +68,7 @@ class OwnedTagSetsController < ApplicationController
                        Relationship: Relationship,
                        Character: Character,
                        Freeform: Freeform,
-                       Banned: Banned }[@tag_type&.classify.to_sym] || Fandom
+                       Banned: Banned }[@tag_type&.classify&.to_sym] || Fandom
     @tags = tag_type_class.joins(:set_taggings).where("set_taggings.tag_set_id IN (?)", @tag_set_ids).by_name_without_articles
   end
 
