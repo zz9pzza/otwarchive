@@ -3,9 +3,6 @@ dist: xenial
 
 language: ruby
 cache: bundler
-  matrix:
-    - CI_NODE_INDEX=0
-    - CI_NODE_INDEX=1
 
 if: tag IS blank
 
@@ -18,7 +15,6 @@ env:
     - CI_NODE_INDEX=2
     - CI_NODE_INDEX=3
     - CI_NODE_INDEX=4
-
 
 services:
   - mysql
