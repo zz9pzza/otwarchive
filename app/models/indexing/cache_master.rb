@@ -51,11 +51,22 @@ class CacheMaster
     set_value(owner_type, value)
   end
 
+  Work Tag User Pseud Collection
+
   def expire
     get_hash.each_pair do |key, id_string|
-      raise "Redshirt: Attempted to constantize invalid class initialize expire #{key.classify}" unless CACHED_CLASSES.include?(key.classify)
-      klass = key.classify.constantize
-      klass.expire_ids(id_string.split(','))
+      case key.downcase
+      when "work"
+        Work
+      when "tag"
+        Tag
+      when "user"
+        User
+      when "pseud"
+        Pseud
+      when "collection"
+        Collection
+      end.expire_ids(id_string.split(','))
     end
     reset!
   end

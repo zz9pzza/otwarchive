@@ -116,9 +116,25 @@ class PromptRestriction < ApplicationRecord
   end
 
   def tags(type="tag")
-    type = type.gsub(/\s+/, "").classify
-    raise "Redshirt: Attempted to constantize invalid class initialize tags -#{type}-" unless Tag::TYPES.include?(type)
-    type.constantize.in_prompt_restriction(self) # Safe constantize checked above
+    klass = case type.gsub(/\s+/, "").downcase
+            when "rating"
+              Rating
+            when "warning"
+              Warning
+            when "category"
+              Category
+            when "media"
+              Media
+            when "relationship"
+              Relationship
+            when "character"
+              Character
+            when "freeform"
+              Freeform
+            when "banned"
+              Banned
+            end
+    klass.in_prompt_restriction(self)
   end
 
 end

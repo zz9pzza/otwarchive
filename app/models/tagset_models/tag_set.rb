@@ -295,12 +295,29 @@ class TagSet < ApplicationRecord
     def tagnames_to_list(taglist, type=nil)
       taglist = (taglist.kind_of?(String) ? taglist.split(ArchiveConfig.DELIMITER_FOR_INPUT) : taglist).uniq
       if type
-        raise "Redshirt: Attempted to constantize invalid class initialize tagnames_to_list #{type}" unless TAG_TYPES.include?(type)
+        klass = case type.downcase
+                when "rating"
+                  Rating
+                when "warning"
+                  Warning
+                when "category"
+                  Category
+                when "media"
+                  Media
+                when "relationship"
+                  Relationship
+                when "character"
+                  Character
+                when "freeform"
+                  Freeform
+                when "banned"
+                  Banned
+                end
         if Tag::USER_DEFINED.include?(type.classify)
           # allow users to create these
-          taglist.reject {|tagname| tagname.blank? }.map {|tagname| (type.classify.constantize).find_or_create_by_name(tagname.squish)} # Safe constantize checked above
+          taglist.reject {|tagname| tagname.blank? }.map {|tagname| klass.find_or_create_by_name(tagname.squish)}
         else
-          taglist.reject {|tagname| tagname.blank? }.map {|tagname| (type.classify.constantize).find_by(name: tagname.squish)}.compact # Safe constantize checked above
+          taglist.reject {|tagname| tagname.blank? }.map {|tagname| klass.find_by(name: tagname.squish)}.compact
         end
       else
         taglist.reject {|tagname| tagname.blank? }.map {|tagname| Tag.find_by_name(tagname.squish) || Freeform.find_or_create_by_name(tagname.squish)}

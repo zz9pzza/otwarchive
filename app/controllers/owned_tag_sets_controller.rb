@@ -60,15 +60,28 @@ class OwnedTagSetsController < ApplicationController
     @tag_sets = OwnedTagSet.in_prompt_restriction(@restriction)
     @tag_set_ids = @tag_sets.pluck(:tag_set_id)
     @tag_type = params[:tag_type] && TagSet::TAG_TYPES.include?(params[:tag_type]) ? params[:tag_type] : "fandom"
-    tag_type_class = { Rating: Rating,
-                       Warning: Warning,
-                       Category: Category,
-                       Media: Media,
-                       Fandom: Fandom,
-                       Relationship: Relationship,
-                       Character: Character,
-                       Freeform: Freeform,
-                       Banned: Banned }[@tag_type&.classify&.to_sym] || Fandom
+    tag_type_class = case @tag_type.downcase
+                     when "rating"
+                       Rating
+                     when "warning"
+                       Warning
+                     when "category"
+                       Category
+                     when "media"
+                       Media
+                     when "fandom"
+                       Fandom
+                     when "relationship"
+                       Relationship
+                     when "character"
+                       Character
+                     when "freeform"
+                       Freeform
+                     when "banned"
+                       Banned
+                     else
+                       Fandom
+                     end
     @tags = tag_type_class.joins(:set_taggings).where("set_taggings.tag_set_id IN (?)", @tag_set_ids).by_name_without_articles
   end
 

@@ -133,12 +133,12 @@ class TagsController < ApplicationController
 
   def show_hidden
     unless params[:creation_id].blank? || params[:creation_type].blank? || params[:tag_type].blank?
-      model = case [params[:creation_type]
-              when "Series"
+      model = case params[:creation_type].downcase
+              when "series"
                 Series
-              when "Work"
+              when "work"
                 Work
-              when "Chapter"
+              when "chapter"
                 Chapter
               end
       @display_creation = model.find(params[:creation_id]) if model.is_a? Class

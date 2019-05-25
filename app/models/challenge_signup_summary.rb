@@ -32,8 +32,26 @@ class ChallengeSignupSummary
 
   # The class of tags to be summarized. Calls tag_type to retrieve the type.
   def tag_class
-    raise "Redshirt: Attempted to constantize invalid class initialize tag_class #{tag_type.classify}" unless Tag::TYPES.include?(tag_type.classify)
-    tag_type.classify.constantize
+    case tag_type.downcase
+    when "rating"
+      Rating
+    when "warning"
+      Warning
+    when "category"
+      Category
+    when "media"
+      Media
+    when "fandom"
+      Fandom
+    when "relationship"
+      Relationship
+    when "character"
+      Character
+    when "freeform"
+      Freeform
+    when "banned"
+      Banned
+    end
   end
 
   # All of the tags of the desired type that have been
