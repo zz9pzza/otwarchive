@@ -315,12 +315,12 @@ class TagSet < ApplicationRecord
                 end
         if Tag::USER_DEFINED.include?(type.classify)
           # allow users to create these
-          taglist.reject {|tagname| tagname.blank? }.map {|tagname| klass.find_or_create_by_name(tagname.squish)}
+          taglist.reject { &:blank? }.map {|tagname| klass.find_or_create_by_name(tagname.squish)}
         else
-          taglist.reject {|tagname| tagname.blank? }.map {|tagname| klass.find_by(name: tagname.squish)}.compact
+          taglist.reject { &:blank? }.map {|tagname| klass.find_by(name: tagname.squish)}.compact
         end
       else
-        taglist.reject {|tagname| tagname.blank? }.map {|tagname| Tag.find_by_name(tagname.squish) || Freeform.find_or_create_by_name(tagname.squish)}
+        taglist.reject { &:blank? }.map {|tagname| Tag.find_by_name(tagname.squish) || Freeform.find_or_create_by_name(tagname.squish)}
       end
     end
 
