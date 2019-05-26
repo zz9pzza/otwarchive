@@ -133,11 +133,13 @@ class TagsController < ApplicationController
 
   def show_hidden
     unless params[:creation_id].blank? || params[:creation_type].blank? || params[:tag_type].blank?
-      raise "Redshirt: Attempted to constantize invalid class initialize show_hidden #{params[:creation_type].classify}" unless %w(Series Work Chapter).include?(params[:creation_type].classify)
-      model = begin
-                params[:creation_type].classify.constantize
-              rescue
-                nil
+      model = case params[:creation_type].downcase
+              when "series"
+                Series
+              when "work"
+                Work
+              when "chapter"
+                Chapter
               end
       @display_creation = model.find(params[:creation_id]) if model.is_a? Class
       # Tags aren't directly on series, so we need to handle them differently
@@ -182,11 +184,25 @@ class TagsController < ApplicationController
   def create
     type = tag_params[:type] if params[:tag]
     if type
-      raise "Redshirt: Attempted to constantize invalid class initialize create #{type.classify}" unless Tag::TYPES.include?(type.classify)
-      model = begin
-                type.classify.constantize
-              rescue
-                nil
+      model = case params[:type]
+              when "Rating"
+                Rating
+              when "Warning"
+                Warning
+              when "Category"
+                Category
+              when "Media"
+                Media
+              when "Fandom"
+                Fandom
+              when "Relationship"
+                Relationship
+              when "Character"
+                Character
+              when "Freeform"
+                Freeform
+              when "Banned"
+                Banned
               end
       @tag = model.find_or_create_by_name(tag_params[:name]) if model.is_a? Class
     else

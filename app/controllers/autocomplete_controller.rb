@@ -92,11 +92,29 @@ class AutocompleteController < ApplicationController
   ## NONCANONICAL TAGS
   def noncanonical_tag
     search_param = params[:term]
-    raise "Redshirt: Attempted to constantize invalid class initialize noncanonical_tag #{params[:type].classify}" unless Tag::TYPES.include?(params[:type].classify)
-    tag_class = params[:type].classify.constantize
-    render_output(tag_class.by_popularity
-                      .where(["canonical = 0 AND name LIKE ?",
-                              '%' + search_param + '%']).limit(10).map(&:name))
+    tag_class = case params[:type].downcase
+                when "rating"
+                  Rating
+                when "warning"
+                  Warning
+                when "category"
+                  Category
+                when "media"
+                  Media
+                when "fandom"
+                  Fandom
+                when "relationship"
+                  Relationship
+                when "character"
+                  Character
+                when "freeform"
+                  Freeform
+                when "banned"
+                  Banned
+                end
+    render_output(tag_class.by_popularity.
+      where(["canonical = 0 AND name LIKE ?",
+             '%' + search_param + '%']).limit(10).map(&:name))
   end
 
 
