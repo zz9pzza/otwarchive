@@ -51,8 +51,6 @@ class CacheMaster
     set_value(owner_type, value)
   end
 
-  Work Tag User Pseud Collection
-
   def expire
     get_hash.each_pair do |key, id_string|
       case key.downcase
