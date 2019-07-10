@@ -24,6 +24,10 @@ module NavigationHelpers
       search_people_path
     when /^the bookmarks page$/i
       bookmarks_path
+    when /^the external works page$/i
+      external_works_path
+    when /^the external works with only duplicates page$/i
+      external_works_path(show: :duplicates)
     when /^the works page$/i
       works_path
     when /^the admin login page$/i
