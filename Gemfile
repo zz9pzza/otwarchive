@@ -9,6 +9,7 @@ gem 'bundler'
 gem 'rails', '~> 5.1.6.2'
 
 gem 'rails-observers', git: 'https://github.com/rails/rails-observers'
+gem 'rack-attack'
 gem 'actionpack-page_caching'
 gem 'rails-controller-testing'
 #gem 'activerecord-deprecated_finders'
