@@ -32,7 +32,7 @@ Rack::Attack.throttle('logged_in_works', limit: ArchiveConfig.USER_WORKS_LIMIT |
 end
 
 Rack::Attack.throttle('logged_in_comments', limit: ArchiveConfig.USER_COMMENTS_LIMIT || 6, period: ArchiveConfig.USER_COMMENTS_LIMIT || 120) do |req|
-  if req.post? &&  req.path == text.match(/^\/chapters\/.*\/comments$/) && \
+  if req.post? &&  req.path.match(/^\/chapters\/.*\/comments$/) && \
   req.env['rack.session'].present? && req.env['rack.session']["warden.user.user.key"].present?
     req.env['rack.session']["warden.user.user.key"][0][0]
   end
