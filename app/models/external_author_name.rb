@@ -17,11 +17,11 @@ class ExternalAuthorName < ApplicationRecord
 
   validates_format_of :name,
     message: ts('can contain letters, numbers, spaces, underscores, @-signs, dots, and dashes.'),
-    with: /\A\w[ \w\-\@\.]*\Z/
+    with: /\A\w[ \w\-\@\.]+.*\z/
 
   validates_format_of :name,
     message: ts('must contain at least one letter or number.'),
-    with: /[a-zA-Z0-9]/
+    with: /\A.*[a-zA-Z0-9]+.*\z/
 
   def to_s
     self.name + ' <' + self.external_author.email + '>'
