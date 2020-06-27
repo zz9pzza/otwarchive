@@ -16,9 +16,8 @@ set -e
 # The conf change requires a restart
 #sudo service mysql restart
 sudo mysql -e "
-use mysql;
-update user set password=null where User='root';
+UPDATE mysql.user SET authentication_string = PASSWORD('password') WHERE User = 'root' AND Host = 'localhost';
 flush privileges;
 quit;"
 
-mysql -e "CREATE DATABASE otwarchive_test DEFAULT COLLATE utf8mb4_unicode_ci DEFAULT CHARACTER SET utf8mb4;"
+sudo mysql -e "CREATE DATABASE otwarchive_test DEFAULT COLLATE utf8mb4_unicode_ci DEFAULT CHARACTER SET utf8mb4;"
