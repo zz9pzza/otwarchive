@@ -16,7 +16,7 @@ set -e
 # The conf change requires a restart
 #sudo service mysql restart
 sudo mysql -e "
-SET PASSWORD FOR user@localhost =  PASSWORD('password') ;
+SET PASSWORD FOR root@localhost =  PASSWORD('password') ;
 flush privileges;
 quit;"
 
