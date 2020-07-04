@@ -19,5 +19,4 @@ sudo mysql -e "
 CREATE DATABASE otwarchive_test DEFAULT COLLATE utf8mb4_unicode_ci DEFAULT CHARACTER SET utf8mb4;
 CREATE USER 'travis'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON otwarchive_test.* TO 'travis'@'%' ;
-flush privileges;
-quit;"
+flush privileges;"
