@@ -1,6 +1,10 @@
 # To execute this docker-compose yml file use `docker-compose -f <file_name> up`
 # Add the `-d` flag at the end for detached execution
 version: "3"
+volumes:
+  my-datavolume:
+  redis-data:
+  esdata1:
 services:
   db:
     image: mysql:5.7
@@ -9,18 +13,28 @@ services:
       - MYSQL_ROOT_PASSWORD=change_me
     ports:
       - "3306:3306"
+    volumes:
+      - my-datavolume:/var/lib/mysql:rw
   redis:
     image: redis:5
     container_name: otwa_redis
     ports:
       - "6379:6379"
+    volumes:
+     - redis-data:/var/lib/redis:rw
   es:
-    image: elasticsearch:6.8.3
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.8.9
     container_name: otwa_es
     ports:
       - "9200:9200"
       - "9300:9300"
       - "9400:9400"
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data:rw
+    environment:
+      - bootstrap.memory_lock=false
+      - "ES_JAVA_OPTS=-Xms1500m -Xmx1500m"
+      - discovery.type=single-node
   mc:
     image: memcached:1.5
     container_name: otwa_mc
