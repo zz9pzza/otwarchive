@@ -1,13 +1,10 @@
 FROM ruby:2.6.5
-RUN apt-get update && apt-get install -y default-mysql-client
+RUN apt-get update && apt-get install -y default-mysql-client calibre
 
 WORKDIR /otwa
 
-RUN git clone https://github.com/zz9pzza/otwarchive.git .
-RUN git checkout docker-compose-james
-RUN cp -n config/database.docker.yml config/database.yml
-RUN cp -n config/redis.docker.yml config/redis.yml
-RUN cp -n config/local.docker.yml config/local.yml
+COPY Gemfile .
+COPY Gemfile.lock .
 
 
 RUN gem install bundler -v 1.17.3 && bundle install
