@@ -6,7 +6,6 @@ WORKDIR /otwa
 COPY Gemfile .
 COPY Gemfile.lock .
 
-
 RUN gem install bundler -v 1.17.3 && bundle install
 
 RUN rm -rf /otwa

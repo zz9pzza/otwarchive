@@ -1,6 +1,10 @@
-cp -n config/database.docker.yml config/database.yml
-cp -n config/redis.docker.yml config/redis.yml
-cp -n config/local.docker.yml config/local.yml
+#!/bin/bash
+
+set -ex
+
+cp -f config/database.docker.yml config/database.yml
+cp -f config/redis.docker.yml config/redis.yml
+cp -f config/local.docker.yml config/local.yml
 
 docker-compose build
 
