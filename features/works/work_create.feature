@@ -15,6 +15,7 @@ Feature: Create Works
     Then I should see "Post New Work"
       And I select "Not Rated" from "Rating"
       And I check "No Archive Warnings Apply"
+      And I select "English" from "Choose a language"
       And I fill in "Fandoms" with "Supernatural"
       And I fill in "Work Title" with "All Hell Breaks Loose 🤬💩"
       And I fill in "content" with "Bad things happen, etc. 🤬💩"
@@ -68,6 +69,7 @@ Feature: Create Works
     When I go to the new work page
       And I select "Not Rated" from "Rating"
       And I check "No Archive Warnings Apply"
+      And I select "English" from "Choose a language"
       And I check "F/M"
       And I fill in "Fandoms" with "Supernatural"
       And I fill in "Work Title" with "All Something Breaks Loose"
@@ -104,7 +106,7 @@ Feature: Create Works
       And I should see "No Archive Warnings Apply"
       And I should not see "Choose Not To Use Archive Warnings"
       And I should see "Category: F/M"
-      And I should see "Characters: Sam Winchester, Dean Winchester"
+      And I should see "Characters: Sam WinchesterDean Winchester"
       And I should see "Relationship: Harry/Ginny"
       And I should see "Additional Tags: An extra tag"
       And I should see "For Someone else, recipient"
@@ -295,6 +297,7 @@ Feature: Create Works
     Given basic tags
       And I am logged in
     When I go to the new work page
+      And I select "English" from "Choose a language"
       And I fill in "Fandoms" with "Dallas"
       And I fill in "Work Title" with "I Shot J.R.: Kristin's Story"
       And I fill in "content" with "It wasn't my fault, you know."

@@ -19,6 +19,7 @@ Feature: Edit chapters
   Then I should see "Post New Work"
   When I select "Not Rated" from "Rating"
     And I check "No Archive Warnings Apply"
+    And I select "English" from "Choose a language"
     And I fill in "Fandoms" with "New Fandom"
     And I fill in "Work Title" with "New Epic Work"
     And I fill in "content" with "Well, maybe not so epic."
@@ -204,6 +205,7 @@ Feature: Edit chapters
   Then I should see "Post New Work"
     And I select "General Audiences" from "Rating"
     And I check "No Archive Warnings Apply"
+    And I select "English" from "Choose a language"
     And I fill in "Fandoms" with "If You Give an X a Y"
     And I fill in "Work Title" with "If You Give Users a Draft Feature"
     And I fill in "content" with "They will expect it to work."
@@ -349,30 +351,41 @@ Feature: Edit chapters
     Then the "sabrina" checkbox should be checked and disabled
 
 
-  Scenario: Removing yourself as a co-creator from the chapter edit page
+  Scenario: Removing yourself as a co-creator from the chapter edit page when
+  you've co-created multiple chapters on the work removes you only from that 
+  specific chapter. Removing yourself as a co-creator from the chapter edit page
+  of the last chapter you've co-created also removes you from the work.
 
     Given the work "OP's Work" by "originalposter" with chapter two co-authored with "opsfriend"
+      And a chapter with the co-author "opsfriend" is added to "OP's Work"
       And I am logged in as "opsfriend"
     When I view the work "OP's Work"
-      And I view the 2nd chapter
+      And I view the 3rd chapter
       And I follow "Edit Chapter"
     When I follow "Remove Me As Chapter Co-Creator"
-    Then I should see "You have been removed as a creator from the chapter"
+    Then I should see "You have been removed as a creator from the chapter."
       And I should see "Chapter 1"
-    When I view the 2nd chapter
-    Then I should see "Chapter 2"
+    When I view the 3rd chapter
+    Then I should see "Chapter 3"
       And I should see "Chapter by originalposter"
+    When I follow "Previous Chapter"
+      And I follow "Edit Chapter"
+      And I follow "Remove Me As Chapter Co-Creator"
+    Then I should see "You have been removed as a creator from the work."
+    When I view the work "OP's Work"
+    Then I should not see "Edit Chapter"
 
 
   Scenario: Removing yourself as a co-creator from the chapter manage page
 
     Given the work "OP's Work" by "originalposter" with chapter two co-authored with "opsfriend"
+      And a chapter with the co-author "opsfriend" is added to "OP's Work"
       And I am logged in as "opsfriend"
     When I view the work "OP's Work"
       And I follow "Edit"
       And I follow "Manage Chapters"
     When I follow "Remove Me As Chapter Co-Creator"
-    Then I should see "You have been removed as a creator from the chapter"
+    Then I should see "You have been removed as a creator from the chapter."
       And I should see "Chapter 1"
     When I view the 2nd chapter
     Then I should see "Chapter by originalposter"
