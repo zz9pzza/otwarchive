@@ -1,5 +1,5 @@
 FROM ruby:2.6.5
-RUN apt-get update && apt-get install -y default-mysql-client calibre
+RUN apt-get update && apt-get install -y default-mysql-client calibre phantomjs
 
 WORKDIR /otwa
 
