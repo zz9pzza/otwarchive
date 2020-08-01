@@ -10,9 +10,7 @@ transaction-isolation=READ-COMMITTED\n\
 innodb_file_per_table=1\n\
 /"
 cat /etc/mysql/mysql.conf.d/mysqld.cnf
-
-ps -ef | grep mysql
-ps -ef | grep mari
+find /etc -name "*maria*" -print
 
 # The conf change requires a restart
 #sudo service mysql restart
