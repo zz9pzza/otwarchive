@@ -4,12 +4,12 @@ set -e
 # 1. Use READ-COMMITTED transaction isolation level
 # 2. Use the Barracuda file format for longer index key prefixes
 #    https://railsmachine.com/articles/2017/05/19/converting-a-rails-database-to-utf8mb4.html
-sudo sed -i /etc/mysql/mariadb.cnf  -e "s/\[mysqld\]/[mysqld]\n\
+sudo sed -i /etc/mysql/mariadb.conf.d/50-server.cnf  -e "s/\[mysqld\]/[mysqld]\n\
 innodb_lock_wait_timeout=15\n\
 transaction-isolation=READ-COMMITTED\n\
 innodb_file_per_table=1\n\
 /"
-sudo cat /etc/mysql/mariadb.cnf
+sudo cat /etc/mysql/mariadb.conf.d/50-server.cnf
 sudo find /etc/mysql/conf.d/
 sudo find /etc/mysql/mariadb.conf.d/
 # The conf change requires a restart
