@@ -10,7 +10,8 @@ transaction-isolation=READ-COMMITTED\n\
 innodb_file_per_table=1\n\
 /"
 sudo cat /etc/mysql/mariadb.cnf
-
+sudo find /etc/mysql/conf.d/
+sudo find /etc/mysql/mariadb.conf.d/
 # The conf change requires a restart
 #sudo service mysql restart
 sudo mysql -e "
