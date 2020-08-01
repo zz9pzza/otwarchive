@@ -21,4 +21,4 @@ RUN gem install bundler -v 1.17.3 && bundle install
 
 # Default command to run in a new container
 EXPOSE 3000
-CMD bundle exec rails s -p 3000
+CMD tail -f /dev/null

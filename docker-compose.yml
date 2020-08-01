@@ -19,7 +19,7 @@ volumes:
   esdata1:
 services:
   db:
-    image: mysql:5.7
+    image: mariadb:10.5.4-focal
     environment:
       - MYSQL_ROOT_PASSWORD=change_me
     ports:
@@ -61,7 +61,7 @@ services:
     environment:
       - OTWA_NO_START_REDIS=1
       - QT_QPA_PLATFORM=offscreen
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "tail -f /dev/null"
     volumes:
       - .:/otwa
     ports:
