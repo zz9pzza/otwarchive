@@ -4,9 +4,7 @@ class ChallengeClaimsController < ApplicationController
   before_action :load_collection, except: [:index]
   before_action :collection_owners_only, except: [:index, :show, :create, :destroy]
   before_action :load_claim_from_id, only: [:show, :destroy]
-
   before_action :load_challenge, except: [:index]
-
   before_action :allowed_to_destroy, only: [:destroy]
 
 
@@ -16,54 +14,38 @@ class ChallengeClaimsController < ApplicationController
     if @collection
       @challenge = @collection.challenge
     elsif @challenge_claim
-      @challenge = @challenge_claim.collection.challenge
+      @challenge = @challenge_claim&.collection&.challenge
     end
-    no_challenge and return unless @challenge
+    return unless @challenge
+    no_challenge
   end
 
   def no_challenge
     flash[:error] = ts("What challenge did you want to work with?")
-    redirect_to collection_path(@collection) rescue redirect_to '/'
+    redirect_to collection_path(@collection) rescue redirect_to root_path
     false
   end
 
   def load_claim_from_id
-    @challenge_claim = ChallengeClaim.find(params[:id])
-    no_claim and return unless @challenge_claim
+    @challenge_claim = ChallengeClaim.find_by_id(params[:id])
+    return unless @challenge_claim.nil?
+    no_claim
   end
 
   def no_claim
     flash[:error] = ts("What claim did you want to work on?")
     if @collection
-      redirect_to collection_path(@collection) rescue redirect_to '/'
+      redirect_to collection_path(@collection) rescue redirect_to root_path
     else
-      redirect_to user_path(@user) rescue redirect_to '/'
+      redirect_to user_path(@user) rescue redirect_to root_path
     end
     false
   end
 
-  def load_user
-    @user = User.find_by(login: params[:user_id]) if params[:user_id]
-    no_user and return unless @user
-  end
-
-  def no_user
-    flash[:error] = ts("What user were you trying to work with?")
-    redirect_to "/" and return
-    false
-  end
-
-  def owner_only
-    unless @user == @challenge_claim.claiming_user
-      flash[:error] = ts("You aren't the claimer of that prompt.")
-      redirect_to "/" and return false
-    end
-  end
 
   def allowed_to_destroy
     @challenge_claim.user_allowed_to_destroy?(current_user) || not_allowed(@collection)
   end
-
 
   # ACTIONS
 
@@ -75,30 +57,22 @@ class ChallengeClaimsController < ApplicationController
       return unless load_collection
       @challenge = @collection.challenge if @collection
       @claims = ChallengeClaim.unposted_in_collection(@collection)
-      if params[:for_user] || !@challenge.user_allowed_to_see_claims?(current_user)
-        @claims = @claims.where(claiming_user_id: current_user.id)
-      end
+
+      @claims = @claims.where(claiming_user_id: current_user.id) if params[:for_user] || !@challenge.user_allowed_to_see_claims?(current_user)
+
 
       # sorting
       set_sort_order
-
-      if params[:sort] == "claimer"
-        @claims = @claims.order_by_offering_pseud(@sort_direction)
-      else
-        @claims = @claims.order(@sort_order)
-      end
-    elsif params[:user_id] && (@user = User.find_by(login: params[:user_id]))
+      @claims = params[:sort] == "claimer" ? @claims.order_by_offering_pseud(@sort_direction) : @claims.order(@sort_order)
+    elsif params[:user_id].present && (@user = User.find_by(login: params[:user_id]))
       if current_user == @user
         @claims = @user.request_claims.order_by_date.unposted
-				if params[:posted]
-					@claims = @user.request_claims.order_by_date.posted
-				end
-        if params[:collection_id] && (@collection = Collection.find_by(name: params[:collection_id]))
-          @claims = @claims.in_collection(@collection)
-        end
+        @claims = @user.request_claims.order_by_date.posted if params[:posted]
+        @claims = @claims.in_collection(@collection) if params[:collection_id] && (@collection = Collection.find_by_name(params[:collection_id]))
       else
         flash[:error] = ts("You aren't allowed to see that user's claims.")
-        redirect_to '/' and return
+        redirect_to root_path
+        return
       end
     end
     @claims = @claims.paginate page: params[:page], per_page: ArchiveConfig.ITEMS_PER_PAGE
@@ -106,7 +80,7 @@ class ChallengeClaimsController < ApplicationController
 
   def show
     # this is here just as a failsafe, this path should not be used
-    redirect_to collection_prompt_path(@collection, @challenge_claim.request_prompt)
+    redirect_to collection_prompt_path(@collection, @challenge_claim.request_prompt) rescue redirect_to root_path
   end
 
   def create
@@ -122,17 +96,9 @@ class ChallengeClaimsController < ApplicationController
 
   def destroy
     @claim = ChallengeClaim.find(params[:id])
-
     begin
-      if @claim.claiming_user == current_user
-        @usernotmod = "true"
-      end
       @claim.destroy
-      if @usernotmod == "true"
-        flash[:notice] = ts("Your claim was deleted.")
-      else
-        flash[:notice] = ts("The claim was deleted.")
-      end
+      flash[:notice] = @claim.claiming_user == current_user ? ts("Your claim was deleted.") : ts("The claim was deleted.")
     rescue
       flash[:error] = ts("We couldn't delete that right now, sorry! Please try again later.")
     end
@@ -146,5 +112,4 @@ class ChallengeClaimsController < ApplicationController
       :collection_id, :request_signup_id, :request_prompt_id, :claiming_user_id
     )
   end
-
 end
