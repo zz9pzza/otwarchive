@@ -50,6 +50,7 @@ Feature: Archivist bulk imports
       And I should see "rebecca2525 [archived by archivist]"
     When the system processes jobs
     Then 1 email should be delivered to "rebecca2525@livejournal.com"
+      And the email should not contain "translation missing"
       And the email should contain invitation warnings from "archivist" for work "Importing Test" in fandom "Lewis"
 
   Scenario: Import a work for multiple authors without accounts should display all in the byline
@@ -64,7 +65,9 @@ Feature: Archivist bulk imports
       And I import the work "http://ao3testing.dreamwidth.org/593.html" by "name1" with email "a@ao3.org" and by "name2" with email "b@ao3.org"
     When the system processes jobs
     Then 1 email should be delivered to "a@ao3.org"
+      And the email should not contain "translation missing"
       And 1 email should be delivered to "b@ao3.org"
+      And the email should not contain "translation missing"
 
   Scenario: Import a work for multiple authors with and without accounts should display all in the byline
     Given the following activated users exist
@@ -82,8 +85,11 @@ Feature: Archivist bulk imports
       | user1 | a@ao3.org |
     When I go to the import page
       And I import the work "http://ao3testing.dreamwidth.org/593.html" by "name1" with email "a@ao3.org" and by "name2" with email "b@ao3.org"
-    Then 1 email should be delivered to "a@ao3.org"
+    When the system processes jobs
+      Then 1 email should be delivered to "a@ao3.org"
+      And the email should not contain "translation missing"
       And 1 email should be delivered to "b@ao3.org"
+      And the email should not contain "translation missing"
 
   Scenario: Import a work for multiple authors with accounts should not display the archivist
     Given the following activated users exist
@@ -108,6 +114,7 @@ Feature: Archivist bulk imports
     When I import the works "http://ao3testing.dreamwidth.org/593.html, http://ao3testing.dreamwidth.org/325.html"
       And the system processes jobs
     Then 1 email should be delivered to "ao3testing@dreamwidth.org"
+      And the email should not contain "translation missing"
 
   Scenario: Importing for an existing Archive author should have correct byline and email
     Given the following activated user exists
@@ -119,6 +126,7 @@ Feature: Archivist bulk imports
       And I should see "ao3"
       And I should not see "[archived by archivist]"
       And 1 email should be delivered to "ao3testing@dreamwidth.org"
+      And the email should not contain "translation missing"
       And the email should contain claim information
     When I go to ao3's works page
     Then I should see "Story"
@@ -147,6 +155,7 @@ Feature: Archivist bulk imports
     When the system processes jobs
   # Importer assumes dreamwidth email for works from there
     Then 1 email should be delivered to "ao3testing@dreamwidth.org"
+      And the email should not contain "translation missing"
       And the email should contain invitation warnings from "archivist" for work "Story" in fandom "Testing"
 
   Scenario: Import a single work as an archivist specifying an external author
@@ -158,6 +167,7 @@ Feature: Archivist bulk imports
       And I should see "We have notified the author(s) you imported works for. If any were missed, you can also add co-authors manually."
     When the system processes jobs
     Then 1 email should be delivered to "random@example.com"
+      And the email should not contain "translation missing"
 
   Scenario: Import a single work as an archivist specifying an external author with an invalid name
     When I import the work "http://ao3testing.dreamwidth.org/593.html" by "ra_ndo!m-t??est n@me." with email "random@example.com"
@@ -165,6 +175,7 @@ Feature: Archivist bulk imports
     And I should see "ra_ndom-test n@me."
     When the system processes jobs
     Then 1 email should be delivered to "random@example.com"
+      And the email should not contain "translation missing"
 
   Scenario: Claim a work and create a new account in response to an invite
     Given account creation is enabled
@@ -172,6 +183,7 @@ Feature: Archivist bulk imports
       And the system processes jobs
     Then 1 email should be delivered to "random@example.com"
       And the email should contain "Claim or remove your works"
+      And the email should not contain "translation missing"
     When I am logged out
       And I follow "Claim or remove your works" in the email
     Then I should see "Claiming Your Imported Works"
@@ -187,6 +199,7 @@ Feature: Archivist bulk imports
     When I import the work "http://ao3testing.dreamwidth.org/593.html" by "randomtestname" with email "random@example.com"
     Then 1 email should be delivered to "random@example.com"
       And the email should contain "Claim or remove your works"
+      And the email should not contain "translation missing"
     When I am logged out
       And I follow "Claim or remove your works" in the email
     Then I should see "Claiming Your Imported Works"
@@ -203,6 +216,7 @@ Feature: Archivist bulk imports
     Given I have an orphan account
     When I import the work "http://ao3testing.dreamwidth.org/593.html" by "randomtestname" with email "random@example.com"
     Then 1 email should be delivered to "random@example.com"
+      And the email should not contain "translation missing"
       And the email should contain "Claim or remove your works"
     When I am logged out
       And I follow "Claim or remove your works" in the email
@@ -251,6 +265,7 @@ Feature: Archivist bulk imports
     And I should see "Club"
     When the system processes jobs
     Then 1 email should be delivered to "random@example.com"
+    And the email should not contain "translation missing"
 
   Scenario: Should not be able to import for others unless the box is checked
     When I go to the import page
