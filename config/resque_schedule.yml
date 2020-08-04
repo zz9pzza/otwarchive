@@ -26,13 +26,33 @@ run_write_redis_to_database:
   args: write_redis_to_database
   description: "Flush the count updates to mysql"
 
-
 run_stats_reindex_queue:
   every: 30m
   class: "ScheduledReindexJob"
   queue: utilities
   args: stats
   description: "Kick off a reindex of works with stats updates"
+
+run_clean_subscription_series:
+  every: 1w
+  class: "ScheduledDatabaseCheckJob"
+  queue: utilities
+  args: "clean_subscription_series"
+  description: "Fix the subscription for deleted series"
+
+run_clean_subscription_user:
+  every: 1w
+  class: "ScheduledDatabaseCheckJob"
+  queue: utilities
+  args: "clean_subscription_user"
+  description: "Fix the subscription for deleted users"
+
+run_clean_subscription_work:
+  every: 1w
+  class: "ScheduledDatabaseCheckJob"
+  queue: utilities
+  args: "clean_subscription_work"
+  description: "Fix the subscription for deleted works"
 
 run_update_filter_counts_small:
   every: 2m
