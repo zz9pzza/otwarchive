@@ -2,10 +2,12 @@
 #      RAILS_ENV=production bundle exec rails r script/dump_stats.rb
 # frozen_string_literal: true
 
-CSV.open(ENV['WORKS_FILENAME'] || '/tmp/works.csv', "wb", :write_headers => true, \
-         :headers => ["created_at", "language", "restricted", "complete", "word_count", "tags"]) do |work_csv|
-  CSV.open(ENV['STATS_FILENAME'] || '/tmp/stats.csv', "wb", :write_headers => true, \
-         :headers => ["count_of_days", "to,from", "day_of_week", "tag_type", "tag_ids", "count"]) do |stats_csv|
+CSV.open(ENV['WORKS_FILENAME'] || '/tmp/works.csv', "wb",
+         write_headers: true,
+         headers: %w(created_at language restricted complete word_count tags)) do |work_csv|
+  CSV.open(ENV['STATS_FILENAME'] || '/tmp/stats.csv', "wb",
+         write_headers: true,
+         headers: %w(count_of_days to from day_of_week tag_type tag_ids count)) do |stats_csv|
     first_time = Work.first.created_at
     days = 1
     end_date = DateTime.now.beginning_of_day
@@ -23,8 +25,7 @@ CSV.open(ENV['WORKS_FILENAME'] || '/tmp/works.csv', "wb", :write_headers => true
       categories_multi = Hash.new(0)
       puts "#{days},#{end_date},#{start_date},#{w.count}"
       w.each do |work|
-        work_csv << [days,start_date.strftime('%F'), work&.language&.short, work&.restricted, work&.complete, \
-                work&.word_count, work&.tags&.pluck(:id)&.join('+')]
+        work_csv << [days, start_date.strftime('%F'), work&.language&.short, work&.restricted, work&.complete ,work&.word_count ,work&.tags&.pluck(:id)&.join('+')]
         next unless ENV['QUICK'].nil?
 
         warnings_multi[work&.archive_warnings&.pluck(:id)&.sort&.join('+')] += 1
@@ -44,10 +45,10 @@ CSV.open(ENV['WORKS_FILENAME'] || '/tmp/works.csv', "wb", :write_headers => true
         work&.freeforms&.pluck(:id)&.each do |id|
           freeforms [id] += 1
         end
-        work&.taggings.select { |t| Tag.find(t.tagger_id).type == "Relationship" }.map { |t| Tag.find(t.tagger_id).id }&.each do |id|
+        work&.taggings&.includes(:tagger)&.select { |t| t.tagger.type == "Relationship" }&.map { |t| t.tagger_id }&.each do |id|
           relationships [id] += 1
         end
-        work&.taggings.select { |t| Tag.find(t.tagger_id).type == "Category" }.map { |t| Tag.find(t.tagger_id).id }&.each do |id|
+        work&.taggings&.includes(:tagger)&.select { |t| t.tagger_id.type == "Category" }&.map { |t| t.tagger_id }&.each do |id|
           categories [id] += 1
         end
       end
@@ -89,8 +90,8 @@ CSV.open(ENV['WORKS_FILENAME'] || '/tmp/works.csv', "wb", :write_headers => true
     end
   end
 end
-CSV.open(ENV['TAGS_FILENAME'] || '/tmp/stats.csv', "wb", :write_headers => true, \
-         :headers => ["id", "type", "name", "canonical", "cached_count", "merger_id"]) do |tags_csv|
+CSV.open(ENV['TAGS_FILENAME'] || '/tmp/stats.csv', "wb", write_headers: true, \
+         headers: %w(id type name canonical cached_count merger_id)) do |tags_csv|
   Tag.find_in_batches do |batch|
     batch.each do |tag|
       tag_name = if tag.taggings_count_cache <= (ENV['TAGS_REDACTED_COUNT'] || 5) && !tag.canonical
